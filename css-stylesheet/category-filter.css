@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700&display=swap'); */
+
+body{
+    line-height: 1.5;
+}
+
+/****************/
+.main-filter-container{
+    width: 90vw; /* Very Cool: Almost responsive Design, OHNE Media-Queries! */
+    margin: 0 auto; /* Cool: Zentriert die gesamte Section. */
+    padding: 40px 0; /* Bringt Luft in das Ganze. */
+}
+.home-filter-h2 {
+    font-size: 2.25rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #000;
+    text-align: center;
+}
+.main-filter-container > p{
+    font-weight: 300;
+    padding: 10px 0;
+    opacity: 0.7;
+    text-align: center;
+}
+.category-head{
+    margin: 30px 0;
+}
+
+@media(max-width: 767px){ /* --- For Phones & smaller Screensizes, we need a Drop-Down Menü for the categories (radio-buttons as <input>). */
+    .no-phone-filter {
+        display: none;
+    }
+    .phone-filter {
+        display: block;
+        position: relative;
+    }
+    .filter-button-phone{
+        display: flex;
+        padding: 10px;
+        text-align: center;
+        border: 1px solid red;
+        background-color: #f4f4f4;
+        justify-content: space-around;
+    }
+    .checked:hover{
+        background-color: #b18080; /*Hover-Effekt hellgrau. Muss man zusätzlich einfügen, sonst gibt es keinen Hover-Effekt auf die checked Klasse*/
+    }
+    [id^=descend] /* Selektiert jede ID, welche mit "descend" beginnt --> alle Checkboxen bei der Navigation werden nicht angezeigt.*/ {
+        display: none;
+    }
+
+    /** Macht, dass das Menü verschwindet (das ist gewollt, denn wir wollen ein drop-down erstellen). **/
+    .dropdown-filter-container ul {
+        display: none; 
+        position: absolute;
+    }
+    [id^=descend]:checked + ul { /*Selects all <ul> elements that are placed immediately after some (checked) elements that begin with the ID "descend". Dieser Befehl ermöglicht das Click-Event! Nachdem die Elemente aus der Liste mit einem Check-Mark angeklickt wurden bzw. checked wurden, wechselt der Display von "none" zu "block" und die Elemente werden sichtbar! */
+        display: contents; /* This will simply (artifically) REMOVE the <ul>-element. This creates the dropdown when clicked! =) */
+    }
+    .flex-container-filter{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        /* margin: 20px; */
+    }
+    .category-title{
+        flex: 1 0 calc(16.6667% - 10px);
+        display: flex;
+        min-width: 25%;
+        justify-content:center;
+        background: #a8a8a8;
+        color: #fff;
+        margin: 5px;
+        cursor: pointer;
+        transition: all 0.4s ease;
+    }
+    .flex-container-filter li{
+        list-style-type: none;
+        padding: 12px;
+    }
+    .flex-container-filter a{
+        text-decoration: none;
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        color: #fff;
+    }
+
+    .flex-container-filter a:visited {
+        color: #fff;
+    }
+
+}
+@media(max-width: 500px){
+    .category-title{
+        min-width: 45%;
+    }
+}
+@media(max-width: 325px){
+    .category-title{
+        min-width: 100%;
+    }
+}
+@media(min-width: 768px){
+    .phone-filter{
+        display: none;
+    }
+    .category-head ul{
+        list-style-type: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-inline-start: 0;
+    }
+    .category-title{
+        flex: 0 0 calc(16.6667% - 10px);
+        display: flex;
+        justify-content:center;
+        background: #a8a8a8;
+        padding: 12px;
+        color: #fff;
+        margin: 5px;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        min-width: 120px; /* Filter-Buttons werden dadurch alle gleich gross, selbst in der Phone-Ansicht! */
+        min-height: 43px;
+    }
+    .category-title:hover{
+        opacity: 0.7;
+    }
+    .category-title li{
+        padding: 0 10px;
+    }
+    .category-title span{
+        color: #222;
+    }
+}
+
+/** single post **/
+.posts-main-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 15px;
+}
+.posts-main-container > div{
+    box-shadow: 0px 8px 22px -12px rgba(0, 0, 0, 0.64);
+}
+.post-img{
+    position: relative;
+}
+.category-name{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 2px;
+}
+.rechts-category{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 2px;
+}
+
+/* Farben für Categorien */
+.gruen{ /* ! "Premium"-Kategorie */
+    background: #75be1b; 
+}
+.orange{ 
+    background: #eb8005; /* #eb8005 */
+}
+.blue{ 
+    background: #00a7ea;
+}
+.rot{ /* ! "Ultimativ"-Kategorie */
+    background: #f03250; 
+}
+.gelb{
+    background: #EDB700;
+}
+.geheimtipp{
+    background: #ea74d6;
+}
+.hellblau{
+    background: #56a49c;
+}
+
+
+
+.post-content{
+    padding: 25px;
+}
+.post-content-top{
+    background: #202020; /*vorher: #80ced7*/
+    color: #fff;
+    opacity: 0.8;
+    padding: 5px 0 5px 15px;
+}
+.post-content-top span{
+    padding-right: 20px;
+}
+.post-content-top .fa-comment, .post-content-top .fa-calendar{
+    padding-right: 5px;
+}
+.post-content h3{
+    font-size: 22px;
+    padding: 12px 0;
+    font-weight: 400;
+    font-family: 'Montserrat';
+    /* border-bottom: 1px solid; */
+}
+.post-content p{
+    opacity: 0.7;
+    font-size: 15px;
+    line-height: 1.8;
+}
+.read-btn{
+    border: none;
+    padding: 8px 15px;
+    display: block;
+    margin: 5px auto;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    border: 1px solid #292929;
+    background: transparent;
+    margin-bottom: 40px;
+}
+
+.read-btn:hover{
+    background: #f6f6f6;
+}
+
+.musik-anlage-info{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0, .3);
+    padding: 15px;
+}
+
+.musik-anlage-preis p{
+    font-family: "Montserrat", sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: 1.4px;
+    color: #fff;
+    margin-block-start: 0; /* Override Default-values for <p>. */
+    margin-block-end: 0; /* Override Default-values for <p>.  */
+}
+
+div.all a, div.ohne-filter a{
+    display: block;
+    color: #000;
+    text-decoration: none;
+    padding-bottom: 1px; /*Very werid bug: WITHOUT 'padding-bottom' here, the link is not clickable until the end of the card. However, if I simply put "padding-bottom: 1px;", the link is goes to the very bottom?! xD*/
+}
+
+div.all:hover, div.ohne-filter:hover {/* Beautiful Hover-Effect when going above each card*/
+    box-shadow: 10px 16px 22px -12px rgba(0, 0, 0, 0.99);
+    border: 3px solid #777;
+}
+
+/* @media only screen and (max-width: 991px){
+    .musik-anlage-preis{
+    margin-right: 0;
+    margin-bottom: 8px;
+    }
+} */
+
+.hifi-infos-wrap{
+    background-color: rgba(0,0,0, .3);
+    padding: 5px;
+    border-radius: 5px;
+    display: flex;
+    margin-top: -3px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.hifi-infos-wrap div {
+    font-family: "Montserrat", sans-serif;
+    font-size: 13px;
+    color: #fff;
+    margin-top: 5px;
+}
+
+.align-svg-to-text {
+  vertical-align: text-bottom;
+  display: inline-block;
+}
+
+
+
+/***************/
+@media(max-width: 1170px){
+    .posts-main-container{
+        grid-template-columns: repeat(2, 1fr); /* Syntax: repeat(number of columns/rows, the column width we want);
+        Why 'fr'-unit is better alternative than 'px' or '%' in the CSS-Grid Layout: https://css-tricks.com/introduction-fr-css-unit/ 
+        */
+    }
+}
+@media(max-width: 768px){
+    .posts-main-container{
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/***********/
+
+.active{
+    background: #f0544f;
+}
+
+/*** -- Cumulative Layout-Shift Problem (muss ich regeln, sonst habe ich ein Problem mit den Anchor-Tags!)
+    > Lösung, die funktioniert: https://www.smashingmagazine.com/2013/09/responsive-images-performance-problem-case-study/
+ -- ****/
+
+.image-placeholder{
+    position: relative;
+    padding-bottom: 100%; /* ! Das ist die Zeile mit dem Hack, damit man Lazy-Loading & Anchor-Tags kombinieren kann!
+    > Für 1:1 ratio setze padding-bottom: 100%; 
+    > Anderes Beispiel: eine 16:9 Ratio, wäre z.B. ein Padding-Bottom von 56.25% */
+    height: 0;
+    overflow: hidden;
+}
+
+.image-placeholder img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

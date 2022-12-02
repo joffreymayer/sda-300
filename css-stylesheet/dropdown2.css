@@ -1,0 +1,730 @@
+* {
+	box-sizing: border-box;
+}
+
+body  {
+	margin: 0;
+}
+
+p { text-align: center;
+}
+
+.toggle, [id^=drop] /* Selektiert jede ID, welche mit "drop" beginnt --> alle Checkboxen bei der Navigation werden nicht angezeigt & Menü auch nicht von Iphone & Ipads*/ {
+ display: none;
+}
+
+nav {
+  margin: 0;
+  padding: 0;
+  background-color: #282E34;
+ /*----- um die Navigation oben fix zu halten --> man muss aber ausserdem in den Mediaquerries dann auch noch position:         static machen bei der Navigation!--------------- */
+  /*position: fixed;
+  z-index: 99999;
+  width: 100%;*/
+}
+
+#logo {	
+  display: block;
+  padding: 0 30px;
+  font-size: 200%;
+  line-height: 60px;
+  color: #FFF;
+  font-family: 'Dancing Script', cursive;
+  float: right;
+}
+
+nav:after /*Inserts something after the navigation*/ {
+  content: ""; /*Setzt nach der Navigation einen leeren String. Macht, dass Navigation ganze Breite annimmt. Ausserdem                  wird dadurch die Höhe genau auf 0 gesetzt, wie wenn man Margin auf 0 setzen würde.*/
+  display: table; /*Macht, dass Navigation ganze Breite annimmt. Vewandelt alles nach der Navigation (= leerer String)                  als Tabelle*/
+  clear: both; /*No floating elements allowed on either the left or the right side. Macht, dass Navigation ganze Breite                 annimmt.Würde auch mit clear: left funktionieren...*/
+}
+
+nav ul {
+  float: left;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  position: relative; /*Jedes Untermenü geht an die Stelle, zu welchem Übermenü es gehört.*/
+}
+
+nav ul li {
+  margin: 0px;
+  display: inline-block; /*Würde auch mit display:block funktionieren.*/
+  float: left;
+  background-color: #282E34;
+}
+
+nav a {
+  display: block;
+  padding: 0 20px;
+  color: #FFF;
+  font-size: 20px;
+  line-height: 60px; /*Setzt die Grösse um den <a>-Link herum*/
+  text-decoration: none;
+}
+
+nav ul li ul li:hover { 
+	background: #0F6; /*Macht, dass wenn man auf ein Untermenü fährt, dass die Hover Farbe sich ändert. Hier ist die                        Farbe grün. Könnte auch background-color schreiben...*/
+}
+
+nav a:hover { 
+	background-color: #2F3B44;
+ }
+
+nav ul ul {
+  display: none; /*Macht, dass beide Sub-Menüs verschwinden*/
+  position: absolute;
+  top: 60px;
+}
+
+nav ul li:hover > ul {
+	display: inherit; /*Inherits the display: inline-block property from its parent element, which is the first <ul>                        <li>. Es ist sehr wichtig li:hover zu schreiben, damit der Browser weiss, dass er das zweite                        Untermenü nur dann sichtbar machen soll, wenn man mit der Maus drüber fährt!*/
+}
+
+nav ul ul li {
+  width: 220px;
+  float: none;
+  display: list-item;
+  z-index: 10;  
+  position: relative;
+}
+
+nav ul ul ul li {
+  position: relative; /*Muss nicht stehen, geht auch ohne*/
+  top: -60px;
+  left: 220px;
+  text-align: center;
+}
+
+li > a:after { content: ' +'; 
+} /*Selects all <a> elements where the parent is a <li> element and adds a string +. */
+
+li > a:only-child:after { content: ''; } /*Wenn <a>-Tag das only-child ist in einem <li>-Tag, dann wird nur ein leerer                                           String eingefügt. Durch diesen Befehl geht man sicher, dass nur ein +-string                                           steht, wo es ein Sub-Menü gibt. */
+
+/* unvisited link */
+a:link {
+    color: white;
+}
+
+/* visited link */
+a:visited {
+    color: white;
+}
+
+/* mouse over link */
+a:hover {
+    color: white;
+}
+
+/* selected link */
+a:active {
+    color: white;
+}
+
+/*-------------------------------------------------------- Hauptteil Index --------------------------------------*/
+
+.container {
+	position: relative;
+    text-align: center;
+    color: #000;
+	/*width setzen, um den container so Gross wie man es möchte zu machen*/
+}
+
+/*Für Bilder*/
+img {
+	width: 100%; /*Muss man setzen, sonst zoomt das Bild stark heran xD*/
+	height: auto;
+}
+
+/* Centered Text im Bild */ 
+.centered {
+	background-color: rgba(204,204,204, 0.65); /*0.6 ist die Durchsichtigkeit des grauen Hintergrundes*/
+	position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+	padding: 15px;
+	border-radius: 10px; /* Abgerundete Ecken*/
+}
+
+.pimg1, .pimg2 { /*Parallay Images, damit Bilder geil von unten auftauchen*/
+	position: relative;
+	opacity: 1;
+	width: 100%;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+} 
+
+.pimg1 {
+	background-image: url(../images/B&W803D3%20von%20vorne.JPG);
+	min-height: 900px;
+
+}
+
+div.centered h1 {
+	font-size: 65px;
+	font-weight: bold;
+}
+
+div.centered h2 {
+	font-size: 23px;
+}
+
+/*arrow
+------------------------------------------- */
+.arrow {
+	text-align: center;
+	color: white;
+	font-size: 5em; /*!!! Einfügen eines kleineren font-size bei media-querries!*/
+	left: 90%;
+	position: absolute;
+	top: 55%;
+	}
+
+.arrow a {
+	text-decoration: none;
+}	
+	
+.arrow a:hover {
+	transition: .5s;
+    color: #F00;
+}
+
+/*-----------------Ende arrow ----------------------*/
+
+
+/*--------------------------- Erste Section Index ---------------------------------------- */
+
+section.white-section {
+	text-align: center;
+	padding: 90px 80px;
+	background-color: white;
+}
+
+section.white-section h1 {
+	border-color: #000;
+	border-style: solid;
+	border-left: thick;
+	border-right: thick;
+	padding: 20px 10px;
+}
+
+section.white-section h2 {
+	font-size: 22px;
+}
+
+section.white-section p {
+	font-size: 20px;
+	margin-top: 38px;
+}
+
+div.gallery {
+    border: 1px solid #ccc;
+}
+
+div.gallery:hover {
+    border: 3px solid #777;
+}
+
+div.gallery img {
+    width: 100%;
+    height: auto;
+}
+
+div.descr {
+    padding: 15px;
+    text-align: center;
+	background-color: #999;
+}
+
+.responsive {
+    padding: 0 6px;
+	margin-left: 70px; /*Zentriert die Bilder*/
+	margin-top: 55px;
+    float: left;
+    width: 24.99999%;
+}
+
+/* section.desc {
+    padding: 15px;
+    text-align: center;
+} */
+
+/*---------- Ende Section Index ------------------------------------------------------- */
+
+/*------------------Start Section Produkte----------------------------------------------*/
+
+section.first {
+	text-align: center;
+	padding: 90px 80px;
+	background-color: black;
+	color: white;
+}
+
+div.maintitel h1 {
+	font-size: 30px;
+	font-weight: bold;
+	}
+
+article {
+	width: 100%;
+	color: white;
+	text-align: center;
+	padding: 40px 70px;
+	border-style: solid;
+	border-left: bisque;
+	border-right: bisque;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.5em;
+	line-height: 2;
+}
+
+img.prod {
+	max-width: 100%;
+	margin-top: 5%;
+}
+
+#column > p:first-child {
+  margin-top: 0;
+} /*Braucht man, sonst ist die zweite Spalte einfach "zu hoch oben" xD  */
+
+.titel {
+	font-size: 30px;
+	font-weight: bold;
+	margin-top: 10%;
+}
+
+#column {
+	column-count: 2;
+	column-width: 150px;
+	column-gap: 40px;
+	line-height: 1.5;
+}
+
+
+/* Media Queries
+--------------------------------------------- */
+
+@media all and (max-width : 1068px) {
+	
+#logo {
+  display: none;
+}
+
+#logo-phone {
+	display: block;
+	float: right;
+	font-family: 'Dancing Script', cursive;
+	font-size: 120%;
+}
+
+nav { 
+  margin: 0;
+  /*----- um die Navigation nicht fixiert zu lassen auf dem Handy ------ position: static;*/ 
+}
+
+.toggle + a, .menu { /*Selects all <a> elements that are placed immediately after toggle class*/
+   display: none;
+}
+
+.toggle {
+  display: block;
+  background-color: #282E34;
+  padding: 0 20px;
+  font-size: 20px;
+  color: #FFF;
+  line-height: 60px;
+  text-decoration: none;
+  border: none;
+}
+
+.toggle:hover { 
+  background-color: #2F3B44; /*Hover-Effekt hellgrau. Muss man zusätzlich einfügen, sonst gibt es keinen Hover-Effekt                               auf die Toggle Klasse*/
+}
+
+nav ul li a:hover {
+	background-color: #2F3B44; /*Hover-Effekt hellgrau*/
+}
+
+[id^=drop]:checked + ul { /*Selects all <ul> elements that are placed immediately after some (checked) elements that                          begin with the ID "drop". Dieser Befehl ermöglicht das Click-Event! Nachdem die Elemente aus                          der Liste mit einem Check-Mark angeklickt wurden bzw. checked wurden, wechselt der Display von                          "none" zu "block" und die Elemente werden sichtbar! */
+  display: block; 
+}
+
+nav ul li {
+  display: block; /*Braucht man nicht. Funktioniert auch ohne*/
+  width: 100%;
+}
+
+nav ul ul .toggle,
+ nav ul ul a { 
+   padding: 0 40px; 
+}
+
+nav ul ul ul a { 
+  padding: 0 80px;  /*Macht, dass der innere Abstand innerhalb der <a>-Boxen grösser werden*/
+}
+
+/*------------ Nicht so gut bzw. unnötig*/
+nav a:hover,
+ nav ul ul ul a { 
+   background-color: #282E34; 
+}
+
+nav ul li ul li .toggle,
+ nav ul ul a { 
+   background-color: #212121; 
+}
+
+/*--------------- */
+
+nav ul ul {
+  float: none; /*Braucht es, sonst füllt das zweite Submenü nicht mehr die ganze Seite aus */
+  position: static; /*Elements render in order, as they appear in the document flow*/
+  color: #ffffff;
+}
+
+nav ul ul li:hover > ul,
+nav ul li:hover > ul { 
+  display: none; 
+}
+
+nav ul ul li {
+  display: block;
+  width: 100%;
+}
+
+nav ul ul ul li { 
+  position: static;
+}
+
+/*---------------------------------- Hauptteil ------------------------------------------------------------*/
+
+/*Ändere Höhe & Grösse der Schrift von "Klangexperten", weil sonst Navigation nicht funktioniert */
+.centered {
+    top: 50%;
+}
+
+div.centered h1 {
+	font-size: 35px;
+}
+
+div.centered h2 {
+	font-size: 20px;
+}
+
+/*Arrow muss in dieser Ansicht weiter runter & kleiner werden.*/
+
+.arrow {
+	top: 75%;
+	font-size: 3em;
+}
+
+.responsive {
+        width: 100%;
+        margin: 6px 0;
+    }
+	
+img.prod {
+	width: 100%;
+}
+
+
+}
+
+@media all and (max-width : 500px) {
+
+nav ul li {
+  display: block;
+  width: 94%;
+}
+
+.responsive {
+	width: 100%;
+}
+
+img.prod {
+	width: 100%;
+}
+
+}
+
+/*--------------------------------------------------------------*/
+
+/*---------------------Lightbox, dh Bildergallerie zum draufdrücken-------------------------------------*/
+
+.row > .column {
+  padding: 60px 8px;
+  background-color: white;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Create four equal columns that floats next to eachother */
+.column {
+  float: left;
+  width: 25%;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0, 0.9)
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  width: 90%;
+  max-width: 1200px;
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #999;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Hide the slides by default */
+.mySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/4 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* Caption text */
+.caption-container {
+  text-align: center;
+  background-color: black;
+  padding: 2px 16px;
+  color: white;
+}
+
+img.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+img.hover-shadow {
+  transition: 0.3s;
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /*oben & unten + rechts & links*/
+}
+
+/*------------------------Ende Lightbox---------------------------------------------------------------*/
+
+
+/*-------------------------Akkordeon, dh Text der auftaucht, wenn man draufklickt---------------------*/
+
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.active, .accordion:hover { /*Active ist eine Klasse, welche über Java hinzugefügt wird.*/
+    background-color: #ccc; 
+}
+
+.panel {
+    padding: 0 18px;
+    background-color: white;
+	max-height: 0;
+    overflow: hidden; /*Sagt ob der Inhalt innerhalb einer Box abgeschnitten oder mit einer Scrollbox angezeigt werden 				                        soll, wenn nicht der ganze Text in eine Box passt.*/
+	transition: max-height 0.2s ease-out;
+	color: #000;
+	line-height: 1.5;
+}
+
+/*--------------Footer-----------------------------------------------------------------*/
+.footer {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
+  background-color: #033;
+  overflow: hidden;
+}
+
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.footcontainer {
+	max-width:400px;
+	width:100%;
+	margin:0 auto;
+	position:relative;
+	float: right;
+}
+
+#contact input[type="text"], #contact input[type="email"], #contact input[type="tel"], #contact input[type="url"], #contact textarea, #contact button[type="submit"] { font:400 12px/16px "Open Sans", Helvetica, Arial, sans-serif; }
+
+#contact {
+	background:#F9F9F9;
+	padding:25px;
+	margin:50px 0;
+}
+
+#contact h3 {
+	color: #F96;
+	display: block;
+	font-size: 30px;
+	font-weight: 400;
+}
+
+#contact h4 {
+	margin:5px 0 15px;
+	display:block;
+	font-size:13px;
+}
+
+fieldset {
+	border: medium none !important;
+	margin: 0 0 10px;
+	min-width: 100%;
+	padding: 0;
+	width: 100%;
+}
+
+#contact input[type="text"], #contact input[type="email"], #contact input[type="tel"], #contact input[type="url"], #contact textarea {
+	width:100%;
+	border:1px solid #CCC;
+	background:#FFF;
+	margin:0 0 5px;
+	padding:10px;
+}
+
+#contact input[type="text"]:hover, #contact input[type="email"]:hover, #contact input[type="tel"]:hover, #contact input[type="url"]:hover, #contact textarea:hover {
+	-webkit-transition:border-color 0.3s ease-in-out;
+	-moz-transition:border-color 0.3s ease-in-out;
+	transition:border-color 0.3s ease-in-out;
+	border:1px solid #AAA;
+}
+
+#contact textarea {
+	height:100px;
+	max-width:100%;
+  resize:none;
+}
+
+#contact button[type="submit"] {
+	cursor:pointer;
+	width:100%;
+	border:none;
+	background:#0CF;
+	color:#FFF;
+	margin:0 0 5px;
+	padding:10px;
+	font-size:15px;
+}
+
+#contact button[type="submit"]:hover {
+	background:#09C;
+	-webkit-transition:background 0.3s ease-in-out;
+	-moz-transition:background 0.3s ease-in-out;
+	transition:background-color 0.3s ease-in-out;
+}
+
+#contact button[type="submit"]:active { box-shadow:inset 0 1px 3px rgba(0, 0, 0, 0.5); }
+
+#contact input:focus, #contact textarea:focus {
+	outline:0;
+	border:1px solid #999;
+}
+::-webkit-input-placeholder {
+ color:#888;
+}
+:-moz-placeholder {
+ color:#888;
+}
+::-moz-placeholder {
+ color:#888;
+}
+:-ms-input-placeholder {
+ color:#888;
+}
+
+
+

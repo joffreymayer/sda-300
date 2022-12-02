@@ -1,0 +1,190 @@
+.showcase-wrapper--testimonials{
+    width: 95vw;
+    position: relative;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 299px){
+	.showcase-wrapper--testimonials {
+		height: 165vh;
+	}
+}
+
+@media screen and (min-width: 300px){
+	.showcase-wrapper--testimonials {
+		height: 140vh;
+	}
+}
+
+@media screen and (min-width: 400px){
+	.showcase-wrapper--testimonials {
+		height: 120vh;
+	}
+}
+
+@media screen and (min-width: 550px){
+	.showcase-wrapper--testimonials {
+		height: 100vh;
+	}
+}
+
+@media screen and (min-width: 800px){
+	.showcase-wrapper--testimonials {
+		height: 90vh;
+	}
+}
+
+@media screen and (min-width: 980px){
+	.showcase-wrapper--testimonials {
+		height: 80vh;
+	}
+}
+
+@media screen and (max-height: 601px){
+	.showcase-wrapper--testimonials {
+		height: 100vh;
+	}
+}
+
+.showcase-content--testimonials{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    transition: all 0.5s ease;
+}
+.showcase--testimonials{
+    min-width: 100%;
+    color: #fff;
+    display: grid;
+    place-content: center;
+    place-items: center;
+    text-align: center;
+    position: relative;
+}
+.showcase--testimonials h1{
+    font-size: 1.8rem;
+    width: 90%;
+    margin: 1.5rem auto;
+}
+.showcase--testimonials button{
+    background: transparent;
+    border: 2.5px solid #fff;
+    color: #fff;
+    font-family: inherit;
+    text-transform: uppercase;
+    padding: 0.8rem 1.4rem;
+    outline: 0;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+.showcase--testimonials button:hover{
+    background: #fff;
+    color: #000;
+}
+
+.dotted-btns{
+    position: absolute;
+    bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.dot-svg {
+    fill: #fff;
+    height: 2vh;
+}
+
+.dotted-btns span{
+    margin: 0 0.5rem;
+    color: #fff;
+    font-size: 0.8rem;
+    opacity: 0.9;
+    cursor: pointer;
+    transition: opacity 0.5s ease;
+}
+.dotted-btns span:hover{
+    opacity: 0.7;
+}
+
+.showcase--testimonials:nth-child(1){
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url(/bilder/kunden-musikanlage/region-rapperswil/marcel-h.jpg) center/cover no-repeat;
+}
+.showcase--testimonials:nth-child(2){
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url(/bilder/kunden-musikanlage/region-rapperswil/gabriel-s.jpg) center/cover no-repeat;
+}
+.showcase--testimonials:nth-child(3){
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url(/bilder/kunden-musikanlage/region-rapperswil/ueli-b.jpg) center/cover no-repeat;
+}
+
+@media screen and (min-width: 400px){
+    .showcase--testimonials h1{
+        font-size: 4rem;
+    }
+}
+
+@media screen and (min-width: 992px){
+    .showcase--testimonials h1{
+        font-size: 5rem;
+    }
+    .showcase--testimonials button{
+        font-size: 1.05rem;
+    }
+}
+
+.testimonials-client {
+    text-align: center;
+    font-weight: 700;
+    font-size: 26px;
+}
+
+.testimonials-client-details {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ce9191;
+    margin-bottom: 15px;
+}
+
+.testimonials-client-feedback {
+    /* position: absolute;
+    height: 350px; */
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    /* display: flex;
+    align-items: flex-end; */
+    line-height: 1.5;
+    width: 79vw;
+}
+
+.bewertungs-wrapper{
+    display: flex;
+    width: 105px;
+    justify-content: space-between;
+}
+
+.star-svg{
+	height: 2vh;
+	fill: #faf60b;
+}
+
+/* @media screen and (max-width: 1030px){
+    .testimonials-client-feedback {
+        bottom: 8%;
+    }
+}
+
+@media screen and (min-width: 1031px){
+    .testimonials-client-feedback {
+        bottom: 13%;
+    }
+}
+
+@media only screen and (min-width: 550px) and (max-width: 610px) {
+    .absolute-centering-wrapper-img {
+        top: 30%
+    }
+
+    .testimonials-client {
+        top: 38%
+    }
+} */

@@ -1,0 +1,158 @@
+/*** --- Start Einzel-Vorstellung Sektion --- ***/
+
+.flex-centering-wrapper--vorstellung{
+    background-color: #141622;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (min-width: 980px){ 
+    .flex-centering-wrapper--vorstellung {
+        /* height: 100vh; */
+        padding: 90px 80px;
+    }
+    .sticky-left-group{ /* Für einen fancy Scrolling-Effekt =) */
+        position: sticky;
+        top: 150px;
+    }
+}
+
+.einzel-vorstellung {
+    display: grid;
+    grid-template-columns: 30% 1fr; /* Hier habe ich ein Grid erstellt mit 2 Spalten, wobei die 1. Spalte nur 1/3 des viewport-widths ausmacht, während die 2. Spalte den "Rest" (= 1fr) ausmacht, was grundsätzlich 2/3 entspricht. */
+    grid-gap: 40px;
+    color: #f8f8f2;
+}
+
+@media screen and (max-width: 980px){ 
+    .einzel-vorstellung {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .flex-centering-wrapper--vorstellung {
+        padding: 90px 35px;
+    }
+
+    .blockquote {
+        text-align: center;
+    }
+}
+
+.circle-img {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+
+.einzel-vorstellung h2 {
+    font-size: 1.75em;
+    font-weight: 300;
+    margin: 20px 0 10px;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
+
+.pseudo-title-einzel-vorstellung {
+    font-size: 1rem;
+    font-weight: 300;
+    margin: 0 0 10px;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    color: #ffffff8a;
+}
+
+.flex-centering-img-wrapper{ /* In order to center an image within a Grid, I used Flex-Box. */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.einzel-vorstellung h3 {
+    color: #98a6ad;
+    font-family: montserrat,sans-serif;
+    font-weight: 400;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.25;
+    font-size: 2.25rem;
+}
+
+.text {
+    line-height: 2;
+    font-weight: 400;
+    font-size: 1rem;
+    color: #f8f8f2;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-family: montserrat,sans-serif;
+}
+
+.section2 {
+    background-color: #272935;
+}
+/**************/
+
+/*** --- Skills-Sektion --- ***/
+.zeile1-skills, .skills-grid {
+    color: #f8f8f2;
+    text-align: center;
+}
+
+.zeile1-skills h2 {
+    font-family: montserrat,sans-serif;
+    font-weight: 400;
+    line-height: 1.25;
+    font-size: 2.25rem;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-rows: 100px 1fr;
+    gap: 2rem; /* Relative to font-size of the root element. */
+}
+
+.inner-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+@media screen and (max-width: 660px){ 
+    .inner-grid{
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .skills-grid {
+        grid-template-rows: 150px 1fr; 
+    }
+
+    .swiper-slide p { 
+        width: 77vw;
+        font-size: 1.65rem;
+        font-weight:lighter
+    }
+}
+
+@media screen and (max-width: 329px){ 
+    .skills-grid {
+        grid-template-rows: 250px 1fr; 
+    }
+}
+
+.icons{
+    fill: #f76497;
+    height: 3rem;
+    margin-bottom: 20px;
+}
+
+.sub-text {
+    font-size: .8rem;
+    line-height: 1.5;
+}
+/**************/
+
+.news-hell a {
+	color: #6a80eb; /* #455fe2 */
+    text-decoration: none;
+}

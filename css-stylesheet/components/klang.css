@@ -1,0 +1,140 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+
+/** -- Start: "Klang"-Sektion -- **/
+.flex-centering-wrapper {
+    background-color: #272935; /* Dunkler Hintergrund: #272935*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (min-width: 980px){
+	.flex-centering-wrapper {
+		height: 125vh;
+    	padding: 90px 80px;
+	}
+}
+
+@media screen and (min-width: 1181px){
+	.flex-centering-wrapper {
+		height: 100vh;
+    	padding: 90px 80px;
+	}
+}
+
+@media screen and (max-width: 979px){
+	.flex-centering-wrapper {
+		padding: 90px 35px;
+	}
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 50% 1fr;
+    grid-gap: 40px;
+    color: #f8f8f2; /* Weisser Text (für auf dunklem Hintergrund): #f8f8f2*/
+}
+
+@media screen and (max-width: 980px){
+	.grid-container {
+		grid-template-columns: repeat(1, 1fr);
+	}
+}
+
+.ueber-uns-titel {
+	color: #fff9e3; /* Weisser Text (für auf dunklem Hintergrund): #fff9e3*/
+	font-weight: 700;
+	letter-spacing: 2px;
+	font-size: 2.5rem;
+	margin-block-end: 0;
+	line-height: 1.2;
+	margin-bottom: 5px;
+	position: relative;
+}
+
+@media screen and (max-width: 378px){
+	.ueber-uns-titel {
+		font-size: 35px;
+	}
+}
+
+@media screen and (max-width: 344px){
+	.ueber-uns-titel {
+		font-size: 28px;
+	}
+}
+
+.ueber-uns-titel:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -8px;
+    width: 95px;
+    height: 1px;
+    background: #fff; /* Weisser Strich (für auf dunklem Hintergrund): #fff*/
+}
+
+@media screen and (min-width: 522px){
+	.ueber-uns-sub-title {
+		font-size: 24px;
+	}
+}
+
+.ueber-uns-sub-title {
+	color: #F30;
+    font-weight: 300;
+    margin: 0 0 10px;
+	font-family: 'Montserrat', sans-serif;
+	letter-spacing: 1px;
+}
+
+.ueber-uns-text p {
+	font-size: 16px;
+	font-weight: 400;
+    line-height: 2;
+	font-family: 'Roboto', Helvetica, Arial, sans-serif;
+}
+
+.spalte2 {
+	align-self: center; /* Damit YT-Video bei Ipads im Zentrum der Cell steht. */
+}
+
+.take-away {
+    border-color: #f8f8f2;/* Weisser Rahmen (für dunkler Hintergrund): #f8f8f2*/
+    border-style: solid;
+    border-left: thick;
+    border-right: thick;
+    color: #f8f8f2; /* Weisser Text (für dunkler Hintergrund): #f8f8f2*/
+	line-height: 1.5;
+	margin-top: 50px;
+	text-align: center;
+	font-family: 'Roboto', Helvetica, Arial, sans-serif;
+	font-weight: bold;
+}
+
+.take-away p {
+	font-size:x-large;
+}
+
+.klang-erwartungen-container{
+	background-color: #272935;
+}
+
+@media only screen and (min-width: 1001px) {
+    .klang-erwartungen-container {
+        padding: 80px 90px;
+   }
+}
+
+@media only screen and (max-width: 1000px) {
+    .klang-erwartungen-container {
+        padding: 30px 25px;
+   }
+}
+
+/* -- Ende: "Klang"-Sektion -- */

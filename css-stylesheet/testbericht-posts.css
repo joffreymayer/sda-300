@@ -1,0 +1,118 @@
+/*** --- Start Testberichte Sektion --- ***/
+html{
+    font-size: 16.17px;
+}
+.universal-wrapper {
+    margin: 0 auto;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    padding-top: 0.1rem;
+    width: 100%;
+    background-color: #f4f4f4; /* Muss stehen, sonst ist unser hintergrund schwarz. */
+}
+.universal-wrapper h1 {
+    margin-block-start: 0;
+    margin-block-end: 0.6em;
+    font-size: 2.25rem;
+    font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+}
+.pt-3 { /*Abkürzung 'pt' steht für "padding-top"*/
+    padding-top: 3em
+}
+.testb-flexbox{
+    display: flex;
+    align-items: flex-start;
+}
+.testb-flexbox { /* Damit wird jeder einzelne Flexbox-Testbericht-Post jeweils ein Abstand gegen unten haben, damit man die Posts besser voneinander unterscheiden kann. */
+    margin-bottom: 2em;
+}
+.testb-flexbox:last-child { /* Damit wird jeder einzelne Flexbox-Testbericht-Post jeweils ein Abstand gegen unten haben, damit man die Posts besser voneinander unterscheiden kann. */
+    margin-bottom: 7em;
+}
+.testb-all-infos-wrapper{ /* Das ist der gesamte Wrapper um einen ganzen Post // Testbericht . */
+    flex: 1;
+    font-weight: 300;
+    font-size: 1rem;
+}
+.testb-header{ /* Das ist der <h2>-Tag (= Titel des Posts). */
+    font-family: source sans pro,sans-serif;
+    font-weight: 400;
+    font-size: 1.2em;
+    line-height: 1.65;
+    color: #212529;
+}
+.testb-header h2{ /* Das ist der <h2>-Tag (= Titel des Posts). */
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+.test-header a{ /* Das ist der <a>-Tag um den <h2>-Tag (= Titel des Posts). */
+    color: #151515;
+    transition: color 0.6s ease;
+}
+.testb-header a, .testb-header a:hover{ /* Das ist der <a>-Tag um den <h2>-Tag (= Titel des Posts). */
+    text-decoration: none;
+    font-weight: 400;
+    color: inherit; /* You need this, in order to inherit the black color from the parent-div. Otherwise it will be blue... */
+}
+.testb-header a:hover{ /* Unterstreiche den <a>-Tag um den <h2>-Tag beim hovern mit der Maus. */
+    text-decoration: underline;
+}
+.testb-summary-link{ /* Das ist der <a>-Tag um den ganzen Summary-Text zum Artikel. */
+    color: unset;
+    font-weight: unset;
+    text-decoration: none;
+    transition: color .6s ease;
+    background-color: transparent;
+    font-family: -apple-system,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,noto sans,liberation sans,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol,noto color emoji;
+}
+.tesb-summary{ /* Dies ist der Summary-Text innerhalb eines Posts. */ 
+    margin-top: 2px;
+    font-size: .8rem;
+    word-wrap: break-word;
+    word-break: break-word;
+    text-align: left;
+    line-height: 1.65;
+    overflow: hidden;
+}
+.testb-metadata{ /* Das entspricht dem Wrapper für die "Lesezeit" & "Verfassungsdatum" */
+    margin-top: 12px;
+    margin-bottom: 5px;
+    font-weight: 300;
+    line-height: 1.5;
+    text-align: left;
+}
+.testb-meta-summary{
+    margin-bottom: 0;
+    overflow: hidden;
+    font-size: 14px;
+    letter-spacing: .03em;
+    color: rgba(0,0,0,.54);
+}
+.minidot-divider {
+    padding-right: 0.45em;
+    padding-left: 0.45em;
+    font-size: 15px;
+}
+.minidot-divider::after { /*Dies wird ein kleiner Punkt zwischen dem Datum & der Lesezeit setzen*/
+    content: '\00B7';
+}
+.ml{ /* 'ml' steht für "margin-left"... */
+    margin-left: 1rem;
+}
+.testb-flexbox img {
+    max-width: 150px;
+}
+
+/* -- Media-Queries -- */
+@media only screen and (min-width: 1001px){
+    .universal-wrapper {
+        width: 1000px;
+    }
+}
+@media only screen and (max-width: 350px){
+    .testb-flexbox img {
+        max-width: 80px;
+    }
+}

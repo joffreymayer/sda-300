@@ -1,0 +1,277 @@
+/**  Start: First, I define the general Structure of the Grid **/
+
+.gallery-main-grid-container { /* Ursprünglich: .posts-main-container */
+    display: grid;
+}
+
+.flex-system { /* ! Wichtig: eignet sich 4 oder 5 Items im Grid, habe ich nicht ein Grid, sondern FLEXBOX Cards einrichten müssen, weil das Gridsystem die letzte Reihe immer linksbündig macht (--> Nachteil: das ist unästhetisch), statt "zentriert".
+    > Quelle: https://stackoverflow.com/questions/46276793/how-to-center-elements-on-the-last-row-in-css-grid */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.dreier-grid-system {
+    grid-template-columns: repeat(3, 1fr); /* ! Important things to note about the Grid-System
+    --- General Syntax? --> repeat(How_many_columns, How_large_should_each_column_be_which_is_calc_automatically_by_the_browser)
+    --- What is 'repeat()'? --> This is a shorthand, essentially, allow us to more concisely describe repeating values. We could have written "grid-template-columns: 33.33% 33.33% 33.33%", but this is very cumbersome...
+    --- What is '1fr'? --> The fr unit (a “fraction”) can be used when defining grids like any other CSS length such as %, px or em. 
+    --- Why should we use 'fr' instead of '%' or 'px'? --> Because it helps to maximize the whole amount of the screen, for each design and - thus - helps to create a less complex responsive design. 
+    More specifically - when building a grid layout - you will need to take into account the grid's gaps (between each column, which also has some pixels to it). If you would use 'px' or '%' instead, you would always need to calculate - by hand - how much of additional width the grid-gaps take. The introduction of the 'fr' unit can handle this "under the hood" and is - therefore - much more simple and flexible to use, when you design a website for a Desktop, a Tablet and a Phone simultaneously!
+    Note, however, that the property 'grid-template-columns: repeat(3, 1fr);' will NOT allow you to make the responsive design per se. You will still need to this via Media-Queries!!
+    */
+    grid-gap: 20px;
+}
+
+.zweier-grid-system {
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 10px;
+}
+
+.einer-grid-system {
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 20px;
+}
+
+.card-container--fixed-ar {
+    max-height: 548px; /* ! Wichtig: Ich hatte beim zweier- & eine-Grid das Problem, dass die Cards jeweils viel zu gross waren. Die Lösung: du musst sowohl eine 'width' UND 'height' angeben, damit sich eine Card überhaupt verändert. Ganz einfach, aber das muss man erstmals wissen! xD */
+    max-width: 399.5px;
+    justify-self: center; /* In order to center the Grid-Items to the center of the cell. */
+}
+
+.flex-card-container-gap {
+    margin: 10px; /*Abstand zwischen den Cards sollte (= dasselbe, wie ein "grid-gap", einfach für das Flexbox-Gridsystem). */
+}
+
+/* ! These are the Media-Queries to make the Grid fully Responsive 
+****/
+@media(max-width: 1170px){
+    .dreier-grid-system, .zweier-grid-system{
+        grid-template-columns: repeat(2, 1fr); /* Syntax: repeat(number of columns/rows, the column width we want);
+        Why 'fr'-unit is better alternative than 'px' or '%' in the CSS-Grid Layout: https://css-tricks.com/introduction-fr-css-unit/ 
+        */
+        grid-gap: 20px;
+    }
+}
+@media(max-width: 768px){
+    .gallery-main-grid-container{
+        grid-template-columns: 1fr;
+        grid-gap: 20px;
+    }
+}
+
+
+
+/* ---- Ende der allgemeinen Struktur des Grid-Systems ---- */
+
+/** Filter-KNOPF Design **/
+
+.category-head {
+    margin: 30px 0; /* Oben & Unten wird "Luft" gelassen aus Design-Gründen. */
+}
+
+.category-head ul {
+    list-style-type: none; /* Dadurch nimmt die un-ordered List keine Bullet-Points an. */
+    display: flex; /* Flex-Box Modell wird angewandt: dadurch werden alle <li>'s zu INLINE-Elemente und floaten aneinander.*/
+    flex-wrap: wrap;
+    justify-content: center; /* --- Noob: Change at the end for design-purposes?? */
+    padding-inline-start: 0;
+}
+
+.category-title {
+    display: flex;
+    justify-content: center;
+    background: #a8a8a8;
+    padding: 12px;
+    color: #fff;
+    margin: 5px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    flex: 0 0 calc(16.6667% - 10px); /* 
+    --- Syntax: flex: flex-grow, flex-shrink, flex-basis
+        > flex-grow == A number specifying how much the item will grow relative to the rest of the flexible items.
+        > flex-shrink == A number specifying how much the item will shrink relative to the rest of the flexible items.
+        > flex-basis == The length of the item (in "%", "px", "em" or any other length unit).
+    --- Calc() == Allows to do: 1) addition, 2) substraction, 3) multiplication OR 4) division of ANY length-unit together with each other, e.g. you can combine different units for the calculations.
+        > Example: calc(100% - 30px)
+    */
+}
+
+.category-title:hover {
+    opacity: 0.7; /* Very Cool: For a hover-effect in a navigation you can simply put the opacity more lighter, to get a great effect! */
+}
+
+.category-title li {
+    padding: 0 10px; /* Push everything 10px to the left & right, for design-purposes. */
+}
+
+.category-title span {
+    color: #222;
+}
+
+.active {
+    background: #f0544f;
+}
+
+/** Produkt-KARTE Design **/
+
+.gallery-main-grid-container > div{ /* Ursprünglich: .posts-main-container */
+    box-shadow: 0px 8px 22px -12px rgba(0, 0, 0, 0.64);
+}
+
+div.card-container:hover {/* Beautiful Hover-Effect when going above each card*/
+    box-shadow: 10px 16px 22px -12px rgba(0, 0, 0, 0.99);
+    border: 3px solid #777;
+}
+
+div.card-container a /*Need this, otherwise whole text becomes white because of <a>-tag...*/ {
+  display: block;
+  color: #000;
+  text-decoration: none;
+}
+
+.card-img { /* Ursprünglich: .post-img */
+    position: relative;
+}
+
+.card-category { /* Ursprünglich: .category-name */
+    position: absolute;
+    top: 20px; /* ! Important: If you want 2 Categories, you need to put this value to '60px', otherwise (e.g. only 1 category) leave it to '20px'. */
+    left: 20px;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 2px;
+}
+
+.second-category { /* Ursprünglich: .category-name */
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 2px;
+}
+
+/** Phone Styles für die Produkt-Karte **/
+@media only screen and (max-width: 345px) {
+    .card-image-two-cat{ /* Füge diese Klasse allen Bildern in der Gallerie zu, um sie zu zentrieren bei ganz schmalen Handys, wie z.B. das Galaxy-Fold!
+        > Der Vorteil dadurch ist, dass ich - bei zwei Kategorien - nicht den Abstand zwischen den Kategorie-Boxen verkleinern muss (ästhetisch sehr ugly...). */ 
+        margin-top: 50px;
+    }
+}
+
+.card-preis {
+    position: absolute;
+    left: 50%; /* To center the absolutely positioned <span>. */
+    top: 88%;
+    transform: translate(-50%, 0); /* To center the absolutely positioned <span>. */
+    bottom: 20px;
+    color: #000;
+    font-weight: bolder;
+    font-size: calc(1.5em + 1vmin); /* ! WICHTIG: To make the price's font-size dynamic. 
+        --> Explanation of what 'vmin' does: 'vmin' compares the height & width of a browser-window. 
+            > IF the HEIGHT of the browser window is LESS THAN its WIDTH, 1vmin will be equivalent to 1vh. 
+            > IF the WIDTH of the browser is LESS THAN it’s HEIGHT, 1vmin is equvialent to 1vw.*/
+    min-width: 250px;
+    text-align: center;
+}
+
+.only-card {
+    top: 20px;
+}
+
+.streamer .card-category { /* ! Wichtige (allgemeine) Bemerkung zu CSS-Regeln
+    > How is this style applied? --> It selects all elements with the class '.strom' and - WITHIN the HTML-Element with the '.strom'-class - it selects ALL the CHILDREN-Elements that have - further NESTED (deeper) into the Tree - the class '.card-category. If both of these conditions are NOT simulatenously met, then it will NOT apply the blue-background color!!!
+    > Ursprünglich: .business .category-name 
+    */
+    background: #50bfeb; /* ursprünglich: #00a7ea*/
+}
+
+.all-in-one .card-category { /* Ursprünglich: .culture .category-name */
+    background: #005b80;
+}
+
+.netzteil .card-category { /* Ursprünglich: .culture .category-name */
+    background: #0d1561;
+}
+
+.da-wandler .card-category { /* Ursprünglich: .finance .category-name */
+    background: #75be1b;
+}
+
+.vollverstaerker .card-category { /* Ursprünglich: .sports .category-name */
+    background:  #f1a821; /* Vorher: #78b18e, #EE284F, #759dac*/
+}
+
+.endstufe .card-category { /* Ursprünglich: .culture .category-name */
+    background: #f03250;
+}
+
+.lautsprecher .card-category { /* Ursprünglich: .culture .category-name */
+    background: #2a293a; /* ! All-in-One ursprüngliche Farbe (für Lautsprecher?): #2c2a4a */
+}
+
+.einsteiger .second-category { /* Ursprünglich: .sports .category-name */
+    background: #75be1b;
+}
+
+.fortgeschritten .second-category { /* Ursprünglich: .sports .category-name */
+    background: #f1a821;
+}
+
+.experte .second-category { /* Ursprünglich: .sports .category-name */
+    background: #f03250;
+}
+
+.card-content { /* Ursprünglich: .post-content */
+    /* padding: 25px; */
+    background-color: #999;
+    margin-top: 30px; /* Brauchst du, ansonten kann der Preis nicht richtig abgebildet werden (vor allem auf sher kleine Handys! . */
+}
+
+@media only screen and (max-width: 320px) {
+    .card-content {
+        margin-top: 50px; /* Damit das Kategorie-Schild oben links bei der Produkt-Karte nicht das Gerät / Lautsprecher verdeckt. */
+    }
+
+    .card-preis {
+        top: 95%;
+    }
+}
+
+@media only screen and (max-width: 497px) {
+    .img-down-shifter--flex{
+        margin-top: 45px; /* Damit das Kategorie-Schild oben links bei der Produkt-Karte nicht das Gerät / Lautsprecher verdeckt, WENN ich das FLEXBOX-System verwende. */
+    }
+}
+
+.card-content h2, .pseudo-title { /* Ursprünglich: .post-content h2 */
+    font-size: 22px;
+    padding: 30px 0px 22px 0px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.card-content h2, .pseudo-title, .mehr-info  {
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.mehr-info { /* Ursprünglich: .post-content p */
+    opacity: 0.7;
+    font-size: 15px;
+    line-height: 1.8;
+    text-align: center;
+    padding: 0px 0px 10px 0px;
+}
+
+/** Spezial-Fälle **/
+.card-home { /*! Wichtige Bemerkung: 
+    > Diese Klasse ist NUR für Bilder auf "index.html": dort haben wir das Problem, dass die Bilder unterschiedliche Aspect-Ratios haben. Der "Trick" hier ist, ihnen die "height" des kleinsten Bilds zu geben. Dies ist allerdings eine NOTLÖSUNG und kann - besser - umgangen werden, wenn du im GIMP alle Bilder auf die gleiche Grösse skalierst! Das empfehle ich dir strengstens!!! */
+    display: block; /* Need this, otherwise you have a strange small white-space below Image! */
+    height: 250px;
+}

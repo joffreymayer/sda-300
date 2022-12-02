@@ -1,0 +1,2979 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asap:wght@500&display=swap');
+
+* {
+	box-sizing: border-box;
+	/* outline: auto; Für das De-Bugging von CSS: kommentiere diese Zeile aus =) */
+}
+
+html, body  {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #f4f4f4;
+	scroll-behavior: smooth;
+}
+
+sup /*Setzt Zeilenabstand für hochgestellte Zahlen auf 0*/ {
+        font-size: 0.83em;
+        vertical-align: super;
+        line-height: 0;
+}
+
+nav {
+  margin: 0;
+  padding: 0;
+  background-color: #282E34;
+ /*----- um die Navigation oben fix zu halten  man muss aber ausserdem in den Mediaquerries dann auch noch position:         static machen bei der Navigation!--------------- */
+  /*position: fixed;
+  z-index: 99999;
+  width: 100%;*/
+}
+
+#logo {	
+  padding: 0 30px;
+  font-size: 200%;
+  line-height: 60px;
+  color: #FFF;
+  font-family: 'Dancing Script', cursive;
+  float: right;
+}
+
+[id^=drop] /* Selektiert jede ID, welche mit "drop" beginnt  alle Checkboxen bei der Navigation werden nicht angezeigt. Auch nicht bei Iphone & Ipads*/ {
+ display: none;
+}
+
+nav:after /*Inserts something after the navigation*/ {
+  content: ""; /*Setzt nach der Navigation einen leeren String. Macht, dass Navigation ganze Breite annimmt. Ausserdem                  wird dadurch die Höhe genau auf 0 gesetzt, wie wenn man Margin auf 0 setzen würde.*/
+  display: table; /*Macht, dass Navigation ganze Breite annimmt. Vewandelt alles nach der Navigation (= leerer String)                  als Tabelle*/
+  clear: both; /*No floating elements allowed on either the left or the right side. Macht, dass Navigation ganze Breite                 annimmt.Würde auch mit clear: left funktionieren...*/
+}
+
+nav ul, nav ul ul {
+  float: left;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  position: relative; /*Jedes Untermenü geht an die Stelle, zu welchem Übermenü es gehört.*/
+}
+
+nav ul li, nav ul ul li, nav ul ul ul li { /* 2x Noob */
+  margin: 0px;
+  display: block; /* vorher: 'display:inline-block' --> hat auch funktioniert, allerdings erhielt ich beim "float: left" eine komische Warnung von VS Code, dass dies nicht mit der "inline-block"-property kombatibel wäre... */
+  float: left;
+  background-color: #282E34;
+}
+
+nav a {
+  display: block;
+  padding: 0 15px; /*vorher: 0 20px*/
+  color: #FFF;
+  font-size: 19px; /*vorher: 0 20px*/
+  line-height: 60px; /*Setzt die Grösse um den <a>-Link herum*/
+  text-decoration: none;
+}
+
+nav ul ul {
+  display: none; /*Macht, dass beide Sub-Menüs verschwinden*/
+  position: absolute;
+  top: 60px;
+}
+
+nav ul ul ul {
+    display: none; /* Macht, dass beide Sub-Menüs verschwinden */
+    position: absolute;
+}
+
+nav ul li:hover > ul, nav ul li ul li:hover > ul {
+	display: inherit; /*Inherits the display: inline-block property from its parent element, which is the first <ul>                        <li>. Es ist sehr wichtig li:hover zu schreiben, damit der Browser weiss, dass er das zweite                        Untermenü nur dann sichtbar machen soll, wenn man mit der Maus drüber fährt!*/
+}
+
+nav ul ul li {
+  width: 240px; /*Breite der Untermenüs --> Bestes: 220px; ABER: mit "scroll-Pfeil mindestens 240px! */
+  float: none;
+  display: list-item;
+  z-index: 10;  
+  /* position: relative; <-- noob: sollte weg! */
+}
+
+@media only screen and (min-width: 1271px) { 
+.drop-down {
+	/*
+	max-height: 600px;
+    overflow: auto;
+	*/
+	max-height: 573px; /*Dieser Wert gibt an, wie weit das Drop-Down Menü bei "Produkte" runtergeht.*/
+	/* overflow: auto; Hier sage ich dem Browser, er soll eine Scroll-bar einfügen für das Drop-Down Menü. Allerdings funktioniert dadurch die "Sub-Sub"-Navigation nicht mehr (sie ist dann nicht mehr sichtbar) */
+}
+}
+
+/*-- BEGINN Animation Scrollbar --*/
+
+.its-going-down-phone {
+	animation: MoveUpDown 1.25s linear infinite; /* gute Einstellungen für Downward pointing Arrow: animation: MoveUpDown 1.25s linear infinite;*/
+	/*Für strich rauf und runter: 3.5s*/
+	float: right;
+	color: red;
+	font-size: 1.5em;
+	display: none; /*keine Anzeige roter Pfeil für ALLE(!) Telefons*/
+	font-weight: bolder;
+  }
+
+  .its-going-down { /* Pfeil angezeigt ab NAD (= PC-Ansicht) */
+	animation: MoveUpDown 1.25s linear infinite; /* gute Einstellungen für Downward pointing Arrow: animation: MoveUpDown 1.25s linear infinite;*/
+	/*Für strich rauf und runter: 3.5s*/
+	float: right;
+	color: red;
+	font-size: 1.5em;
+	font-weight: bolder;
+	display: block; /*Um roten Pfeil unsichtbar zu machen: schreibe hier 'display: none' !!!*/
+  }
+  
+  @keyframes MoveUpDown { /* Animation für Pfeil als Hinweis für Scrolling*/
+	0%, 100% {
+	  transform: translateY(0);
+	}
+	50% {
+	  transform: translateY(-5px);
+	}
+  }
+
+/*** --- Insert the correct Media-Querries: Visibility of downward pointing arrow ---> Pfeil-Anzeige hängt - vor allem - von Telefon-Height ab (siehe Markdown-File dazu) ***/
+@media only screen and (min-height: 310px) and (max-height: 364px) and (max-width: 1271px) { /* Pfeil ab Accuphase */
+	.down-310{
+		display: inline-block; /* NACHDEM du NAD einfügst --> inline-block statt 'none'*/
+	}
+
+	.its-going-down{
+		display: none; 
+	}
+}
+
+@media only screen and (min-height: 365px) and (max-height: 414px) and (max-width: 1271px) { /* Pfeil ab Atoll */
+	.down-365{
+		display: inline-block; /* NACHDEM du NAD einfügst --> inline-block statt 'none'*/
+	}
+
+	.its-going-down{
+		display: none;
+	}
+}
+
+@media only screen and (min-height: 415px) and (max-height: 474px) and (max-width: 1271px) { /* Pfeil ab B&W */
+	.down-415{
+		display: inline-block; /* NACHDEM du NAD einfügst --> inline-block statt 'none'*/
+	}
+
+	.its-going-down{
+		display: none;
+	}
+}
+
+@media only screen and (min-height: 475px) and (max-height: 534px) and (max-width: 1271px) { /* Pfeil ab CH Precision */
+	.down-415{
+		display: inline-block; /* NACHDEM du NAD einfügst --> inline-block statt 'none'*/
+	}
+
+	.its-going-down{
+		display: none;
+	}
+}
+
+@media only screen and (min-height: 535px) and (max-height: 589px) and (max-width: 1271px) { /* Pfeil ab Davis-Acoustics */
+	.down-475{
+		display: inline-block; /* NACHDEM du NAD einfügst --> inline-block statt 'none'*/
+	}
+
+	.its-going-down{
+		display: none;
+	}
+}
+
+@media only screen and (min-height: 590px) and (max-height: 649px) and (max-width: 1271px) { /* Pfeil ab Devialet */
+	.down-535{
+		display: inline-block; /* NACHDEM du NAD einfügst --> inline-block statt 'none'*/
+	}
+
+	.its-going-down{
+		display: none;
+	}
+}
+
+@media only screen and (min-height: 650px) and (max-height: 719px) and (max-width: 1271px) { /* Pfeil ab Exxeption */
+	.down-590{
+		display: inline-block; /* NACHDEM du NAD einfügst --> inline-block statt 'none'*/
+	}
+
+	.its-going-down{
+		display: none;
+	}
+}
+
+@media only screen and (min-height: 720px) and (max-height: 779px) and (max-width: 1271px) { /* Pfeil ab Focal */
+	.down-650{
+		display: inline-block; /* NACHDEM du NAD einfügst --> inline-block statt 'none'*/
+	}
+
+	.its-going-down{
+		display: none;
+	}
+}
+
+/*-- ENDE Animation Scrollbar --*/
+
+/* --- Begin "High-Light" Utopia --- */
+.highlight-nav{
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: small;
+	color: #fff;
+	border: 1px solid red;
+	border-radius: 5px;
+	padding: 2px;
+	user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+	pointer-events: none;
+}
+.highlight-svg{
+	height: 1.5vh;
+	fill: #faf60b;
+}
+/*-- ENDE "High-Light" Utopia --*/
+
+/* nav ul ul ul li {
+  position: relative;
+  top: -60px;
+  left: 220px;
+  text-align: center;
+} */
+
+/*li > a:after { content: ' +'; 
+} /*Selects all <a> elements where the parent is a <li> element and adds a string +. */
+
+li > a:only-child:after { content: ''; } /*Wenn <a>-Tag das only-child ist in einem <li>-Tag, dann wird nur ein leerer                                           String eingefügt. Durch diesen Befehl geht man sicher, dass nur ein +-string                                           steht, wo es ein Sub-Menü gibt. */
+
+/*Für Bilder*/
+img {
+	width: 100%; /*Muss man setzen, sonst zoomt das Bild stark heran xD*/
+	height: auto;
+}
+
+/** Lazy-Load Animation for <img>-Tag in order to make them visible **/
+.lazy {
+	/* For Animation of Lazy-Loading */
+	transform: translateX(0);
+	opacity: 0;
+	transition: all 1s; 
+	/* 
+	*/
+}
+
+.lazy-fade {
+	transform: translateX(0);
+	opacity: 1.0;
+	transition: all 1s;
+} 
+
+.flex-background-img {
+    object-fit: cover; /* In order to mantain the correct aspect-ratio for the images. */
+}
+/********/
+
+/* ----Start: Hero-image allgemein ----
+
+--- Description: This Hero-Image is already designed to be responsive for any screen! Hence, the CSS allows the image 
+to always take the full-width of the screen, independent whether it is a phone or a Computer!
+
+----------*/
+
+.grande-image {
+	width: 100%;
+    height: 100vh;
+    position: relative; /* This is necessary, because we will set all images to position absolute, relative to our container 'slideshow'. */
+    overflow: hidden;
+}
+
+.grande-image-item{
+    width: inherit; /* Inherits the width of the parent-element (= 'slideshow')*/
+    height: inherit;
+    position: absolute; /* Makes sure, that each of the images within the slide-show, is sitting on top of each other. */
+}
+
+.grande-image-item img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* OMG: This guarantees, that the image will behave like a background image. Usually, "normal" images have 
+                          trouble when it comes to behaving well, when the screen gets smaller! */
+}
+
+.centered {
+	background-color: rgba(204,204,204, 0.65);
+    padding: 15px;
+    border-radius: 10px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    position: absolute;
+    text-align: center;
+	color: #000;
+}
+
+/*---------End: Hero-image allgemein----------*/
+
+/*------ Index -----*/
+
+.container {
+	position: relative;
+    color: #000;
+}
+
+.centered {
+	background-color: rgba(204,204,204, 0.65);
+    padding: 15px;
+    border-radius: 10px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    position: absolute;
+    text-align: center;
+    color: #000;
+}
+
+.hero-sub-title {
+	font-weight: bold;
+}
+/************/
+
+/* -- Hero-Image Styles -- */
+
+:root { 
+    --transparent-subtitle-color: rgba(255, 255, 255, 0.5);
+    --non-transparent-subtitle-color: #fff;
+}
+
+.showcase-wrapper {
+    height: 95vh; /* Full-Screen height. */
+    position: relative; /* This is needed in order to be able to position the 3 Dots that will give a hint to the user at which slide he currently is. */
+    overflow: hidden;
+}
+
+.showcase-content{ /* Styling Flex-Container. */
+    height: 100%; /* Take full-screen height. */
+    width: 100%; /* Full-screen width. */
+    display: flex;
+    transition: all 0.5s ease;
+}
+
+.showcase { /* Styling Flex-Items (& Grid-Container). 
+        --> KEY: The Flex-Items will also - simultaneously - be a Grid-Container!! */
+    min-width: 100%; /* Each Flexbox-Item should have a FIXED 100% width, relative to the viewport (= borwser-fenster)!! */
+    display: grid; /* Default-Behavior: All Grid-Items become 1 column. */
+    place-items: center; /* This will be the vertical & horizontal alignment for our Grid-ITEMS WITHIN each CELL.
+
+    - Key to note 1: Since the 'place-items' can only be applied to a Grid- OR Flexbox-CONTAINER, we can conclude that this property is applied to our GRID-Container (and not to the Flexbox that we used on the 'showcase-content'-div above).
+
+    - Key to note 2: This is a Short-Cut-Writing for the following two Grid OR Flexbox CSS-properties: 
+        - 'justify-items'-property (= horizontal alignment for Flexbox)
+        - 'align-content'-property (= this is the vertical-alignment, since - by Default - we have a flex-direction of 'row' in this case.)
+    */
+    place-content: center; /* We horizontally & vertically alignment for the Flexbox- OR Grid-CONTENT. Dadurch nimmt - vor allem - der Button nicht dies gesamte Breite (= Width) der Grid-Cell an.
+
+    - Key to note 1: Since the 'place-content' can only be applied to a Grid- OR Flexbox-CONTAINER, we can conclude that this property is applied to our GRID-Container (and not to the Flexbox that we used on the 'showcase-content'-div above). 
+        - What it does? --> It will center - horizontally AND vertically - the WHOLE content of each column RELATIVE TO the whole height of the column (= e.g. both items WITHIN each of the 3 columns will be placed into the center of their corresponding grid-container). 
+
+    - Key to note 2: This is a Short-Cut-Writing for the following two Flexbox- OR Grid- CSS-properties: 
+        - 'justify-content'-property (= horizontal alignment WITHIN the flex- / grid-container)
+        - 'align-content'-property (= this is the vertical-alignment WITHIN the flex- / grid-container.)
+    */
+    color: #fff;
+    text-align: center;
+}
+
+.showcase h1 {
+    font-size: min(70px, 10vw);
+    width: min(600px, 90vw);
+    margin: 1.5rem auto; /* Bringt mehr Luft zwischen Button & Titel. */
+}
+
+.hero-image{
+    object-fit: cover;
+    object-position: center;
+    height: 95vh;
+	display: block;
+}
+
+.title-on-img{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.subtitle-on-img {
+    /* border: 2.5px solid #fff; */
+    color: rgba(255, 255, 255, 0.9);
+    font-style: italic;
+    font-family: inherit;
+    text-transform: uppercase;
+    padding: 0.8rem 1.4rem;
+    outline: 0;
+    display: inline-block;
+}
+
+@media screen and (min-width: 992px){
+    .subtitle-on-img{
+        font-size: 1.05rem;
+    }
+}
+
+.showcase picture {
+    width: 100vw; /* Bug-Fix: otherwise, the hero-image has not the full-width! */
+}
+
+.black-gradient picture:after { /* Dadurch wird ein pseudo-element kreiert, welches einen dunkleren Farb-Gradienten über die Hero-Images legt. */
+    content:'';
+    position:absolute;
+    left:0; top:0;
+    width:100%; height:100%;
+    display:inline-block; /*rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)*/
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.5) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0, 0, 0, 0.5)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.4) 0%,rgba(0, 0, 0, 0.5) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(0, 0, 0, 0.4) 0%,rgba(0, 0, 0, 0.5) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(0, 0, 0, 0.4) 0%,rgba(0, 0, 0, 0.5) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%,rgba(0, 0, 0, 0.5) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+}
+
+.brighter-black-gradient picture:after { /* Dadurch wird ein pseudo-element kreiert, welches einen dunkleren Farb-Gradienten über die Hero-Images legt. */
+    content:'';
+    position:absolute;
+    left:0; top:0;
+    width:100%; height:100%;
+    display:inline-block; /*rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)*/
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0, 0, 0, 0.1)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.1) 0%,rgba(0, 0, 0, 0.3) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(0, 0, 0, 0.1) 0%,rgba(0, 0, 0, 0.3) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(0, 0, 0, 0.1) 0%,rgba(0, 0, 0, 0.3) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%,rgba(0, 0, 0, 0.3) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+}
+
+@media screen and (max-width: 340px){
+    .showcase h1{
+        font-size: min(2rem, 8vh);
+    }
+}
+
+.showcase button, .kontakt-knopf {
+    background: transparent;
+    border: 2.5px solid #fff;
+    color: #fff;
+    font-family: inherit;
+    text-transform: uppercase;
+    padding: 0.8rem 1.4rem;
+    outline: 0;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.kontakt-knopf a:visited {
+	color: #000;
+}
+
+.showcase a {
+    text-decoration: none;
+}
+
+.kontakt-knopf-link {
+	color: #000;
+	display:block;
+}
+
+.showcase button:hover, .kontakt-knopf:hover {
+    background: #acacac; /*for red: #fc5050*/
+    color: #000;
+}
+
+.flex-centering-wrapper {
+    background-color: #272935; /* Dunkler Hintergrund: #272935*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (min-width: 980px){
+	.flex-centering-wrapper {
+		height: 125vh;
+    	padding: 90px 80px;
+	}
+}
+
+@media screen and (min-width: 1181px){
+	.flex-centering-wrapper {
+		height: 100vh;
+    	padding: 90px 80px;
+	}
+}
+
+@media screen and (max-width: 979px){
+	.flex-centering-wrapper {
+		padding: 90px 35px;
+	}
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 50% 1fr;
+    grid-gap: 40px;
+    color: #f8f8f2; /* Weisser Text (für auf dunklem Hintergrund): #f8f8f2*/
+}
+
+@media screen and (max-width: 980px){
+	.grid-container {
+		grid-template-columns: repeat(1, 1fr);
+	}
+}
+
+.ueber-uns-titel {
+	color: #fff9e3; /* Weisser Text (für auf dunklem Hintergrund): #fff9e3*/
+	font-weight: 700;
+	letter-spacing: 2px;
+	font-size: 2.5rem;
+	margin-block-end: 0;
+	line-height: 1.2;
+	margin-bottom: 5px;
+	position: relative;
+}
+
+@media screen and (max-width: 378px){
+	.ueber-uns-titel {
+		font-size: 35px;
+	}
+}
+
+@media screen and (max-width: 344px){
+	.ueber-uns-titel {
+		font-size: 28px;
+	}
+}
+
+.ueber-uns-titel:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -8px;
+    width: 95px;
+    height: 1px;
+    background: #fff; /* Weisser Strich (für auf dunklem Hintergrund): #fff*/
+}
+
+@media screen and (min-width: 522px){
+	.ueber-uns-sub-title {
+		font-size: 24px;
+	}
+}
+
+.ueber-uns-sub-title {
+	color: #F30;
+    font-weight: 300;
+    margin: 0 0 10px;
+	font-family: 'Montserrat', sans-serif;
+	letter-spacing: 1px;
+}
+
+.ueber-uns-text p {
+	font-size: 16px;
+	font-weight: 400;
+    line-height: 2;
+	font-family: 'Roboto', Helvetica, Arial, sans-serif;
+}
+
+.spalte2 {
+	align-self: center; /* Damit YT-Video bei Ipads im Zentrum der Cell steht. */
+}
+
+.take-away {
+    border-color: #f8f8f2;/* Weisser Rahmen (für dunkler Hintergrund): #f8f8f2*/
+    border-style: solid;
+    border-left: thick;
+    border-right: thick;
+    color: #f8f8f2; /* Weisser Text (für dunkler Hintergrund): #f8f8f2*/
+	line-height: 1.5;
+	margin-top: 50px;
+	text-align: center;
+	font-family: 'Roboto', Helvetica, Arial, sans-serif;
+	font-weight: bold;
+}
+
+.take-away p {
+	font-size:x-large;
+}
+
+.section2 {
+    background-color: #141622;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-rows: 100px 1fr;
+    gap: 2rem;
+}
+
+.zeile1-skills, .skills-grid {
+    color: #f8f8f2;
+    text-align: center;
+}
+
+.zeile1-skills h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    line-height: 1.25;
+    font-size: 2.25rem;
+}
+
+.inner-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+@media screen and (max-width: 335px){
+	.skills-grid {
+		grid-template-rows: 163px 1fr;
+	}
+}
+
+@media screen and (max-width: 850px){
+	.inner-grid {
+		grid-template-columns: repeat(1, 1fr);
+	}
+}
+
+@media screen and (min-width: 850px){
+	.grid-item-skills {
+		width: 32vw;
+	}
+}
+
+.icons {
+    fill: #FAB00B; /* Rosa Farbe: #f76497*/
+    height: 3rem;
+    margin-bottom: 20px;
+}
+
+.skills-text {
+    line-height: 2;
+    font-weight: 400;
+    font-size: 1rem;
+    color: #f8f8f2;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-family: 'Montserrat',sans-serif;
+}
+
+.sub-text {
+    font-size: .8rem;
+    line-height: 1.5;
+}
+
+.circle-img {
+	border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+
+.white-section {
+	background-color: white;
+}
+
+section.white-section {
+	text-align: center;
+}
+
+.unternehmen {
+	line-height: 1.5;
+}
+
+.unternehmen p {
+	font-size: 1.3em;
+}
+
+.wrap-three {
+	display: flex;
+}
+
+.wrap-five /*special for ungerade Produkt-Anzahl*/ {
+	display: flex;
+    justify-content: space-evenly;
+}
+
+.responsive /*Section First Abstand Bilder-Gallery*/{
+    margin-top: 55px;
+}
+
+.gallery {
+	border: 1px solid #ccc;
+}
+
+div.gallery:hover {
+    border: 3px solid #777;
+}
+
+div.gallery:hover h1{
+	text-decoration: underline;
+}
+
+div.gallery a /*Need this, otherwise whole text becomes white because of <a>-tag...*/ {
+  display: block;
+  color: #000;
+  text-decoration: none;
+}
+
+.image-card {
+	position: relative;
+}
+
+.speaker-preis {
+	position: absolute;
+    left: 50%;
+    top: 95%;
+    transform: translate(-50%, 0);
+    bottom: 20px;
+    color: #000;
+    font-weight: bolder;
+    font-size: min(calc(1em + 1vmin), calc(0.7em + 1vmin));
+    min-width: 250px;
+    text-align: center;
+}
+
+@media only screen and (max-width: 320px) {
+    .speaker-preis {
+        top: 105%;
+    }
+
+	.descr{
+		margin-top: 20px
+	}
+}
+
+.descr{
+    padding: 15px;
+    text-align: center;
+    background-color: #999;
+}
+
+div.gallery img {
+	display: block;
+}
+
+.header-gallery{
+	font-size: 1.5em;
+	margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+.text-gallery {
+	font-size: 1.15em;
+}
+
+.arrow-container {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 50px;
+	padding-right: 2rem;
+}
+
+.roter-pfeil {
+    color: red;
+    font-size: 5em;
+	animation: crescendo 1.5s alternate infinite ease-in;
+}
+
+.pfeil-innen {
+	padding: 25px;
+}
+
+#goUp{ /* This is a button, that's why we have alot of default-values to overwrite... */
+	margin: 0;
+	appearance: none;
+	background-color: transparent;
+	color: #F00;
+	border: none;
+	transform: rotate(180deg);
+	font-size: 3em;
+	cursor: pointer;
+}
+
+@keyframes crescendo { /*macht dieses "gross-klein" werden des Pfeiles xD*/
+  0%   {transform: scale(.8);}
+  100% {transform: scale(1.4);}
+}
+
+.roter-pfeil a {
+    text-decoration: none;
+}
+
+.roter-pfeil a:visited, .roter-pfeil a:link {
+    color: red;
+}
+
+/*------- Produkte ----------*/
+
+.main-container {
+	position: relative;
+}
+
+.main-container .flex-wrap:nth-child(odd) {
+	display: flex;
+	flex-direction: row;
+	-webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+}
+
+.main-container .flex-wrap:nth-child(even) {
+	display: flex;
+	flex-direction: row-reverse;
+	-webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+}
+
+.main-container .plain-text p /*braucht man, sonst überschreibt <p>-CSS regel 'center' den text-align left...*/ {
+	text-align: left;
+}
+
+.article-container {
+	padding-top: 0;
+    padding-bottom: 0;
+	margin-top: 0;
+}
+
+.article-container:before {
+	display: table;
+    content: " ";
+}
+
+.image-flex {
+	background-size: cover;
+    background-position: center;
+    min-height: 400px;
+	position: relative;
+    height: auto; /* vorherige Einstellung: height: 100% --> dies hatte jedoch den Nachteil, dass - wenn meine Texte zu lang wurden - das Foto abgeschnitten wurde!*/
+	width:50%;
+	display: flex;
+}
+
+.image-flex:after {
+	content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.wrap-content {
+	display: flex;
+	background-color: #fff;
+    color: #1e2423;
+	width: 50%;
+}
+
+.wrap-content:after {
+	content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.drin, .preisliste-drin {
+	display: flex;
+	align-items: center;
+    min-height: 100%;
+    width: 100%;
+	padding: 5% 17%;
+}
+
+.drin-preisliste {
+	justify-content: space-around;
+}
+
+.drin-content {
+	padding-right: 10px;
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+.title-article {
+	font-size: 30px;
+	margin: 0;
+	line-height: 1.1;
+}
+
+.sub-title {
+	font-size: 16px;
+	color: #F30;
+	margin: 0;
+}
+
+.plain-text {
+	margin-top: 40px;
+    line-height: 25px;
+}
+
+.plain-text a /*Links auf Preisliste bleiben schwarz.*/{
+	color: #000;
+	text-decoration: none;	
+}
+
+.long-wrap /*für Texte, welche lang sind und nicht in ein kleines Kästchen platziert werden können.*/{
+	background-color: #fff;
+	display: flex;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 990px) {
+	.long-wrap {
+		padding: 30px 20px;
+	}
+}
+
+@media only screen and (min-width: 991px) {
+	.long-wrap {
+		padding: 54px 0px;
+	}
+}
+
+.long-frame {
+	border: 1px solid #AAAAAA;
+	margin: 1% 1% 0.8em 0;
+}
+
+.long-scale {
+	max-width: 800px;
+}
+
+.long-article-style {
+	line-height: 1.9;
+    text-align: justify;/*Blocksatz*/
+}
+
+.news a /*Links auf News-Seite werden blau*/{
+	color: blue;
+	text-decoration: none;
+}
+
+.speaker a {
+	color: blue;
+	text-decoration: none;
+}
+
+.speaker:visited {
+	text-decoration: none;
+}
+
+.main-container .plain-text p /*braucht man, sonst überschreibt <p>-CSS regel 'center' den text-align left...*/ {
+	text-align: left;
+}
+/*----End Optimize---*/
+
+.products {
+	background-color: white;
+}
+
+.products-h1 {
+	padding: 10px 10px;
+    border-bottom-style: ridge;
+}
+
+.wrap-products {
+	flex-wrap: wrap;
+}
+
+.product-footer {
+	margin-top: 3%;
+}
+
+.product-article {
+	width: 100%;
+	color: black;
+	font-family: 'Montserrat', sans-serif;
+	line-height: 1.5;
+	display: flex;
+}
+
+.quotation-start:before, .quotation-end:after {
+    content: "\201C";
+    color: #d4d4d4;
+    font-size: 5rem;
+    font-family: Playfair Display,serif;
+    font-weight: 700;
+	display: block;
+}
+
+.quotation-start:before {
+	line-height: 60px;
+}
+
+.quotation-end:after {
+	line-height: 90px;
+}
+
+.article-h1 {
+	padding: 10px 10px;
+    border-bottom-style: ridge;
+}
+
+.p-wrap {
+	display: flex;
+	justify-content: space-evenly;
+	text-align: justify;
+}
+
+.p-wrap > div {
+	padding: 10px 20px;
+}
+
+.special {
+    padding: 20px 10px;
+}
+
+.highlight /*h3*/ {
+	border-color: #000;
+	border-style: solid;
+	border-left: thick;
+	border-right: thick;
+	color: black;
+	padding: 20px 10px;
+	text-align: center;
+	/*for font-size see media-queries*/
+}
+
+.botschaft {
+    border-color: #FFF;
+    border-style: solid;
+    border-left: thick;
+    border-right: thick;
+    padding: 20px 10px;
+    margin: 5%;
+    color: #FFF;
+	line-height: 1.5;
+}
+
+/*--Grande Utopia---*/
+
+/* Dies ist der <div> Tag, welcher mitten im Bild steht und absolut positioniert ist! */ 
+.centeredGrande{
+	background-color: rgba(204,204,204, 0.65); /*0.6 ist die Durchsichtigkeit des grauen Hintergrundes*/
+	padding: 15px;
+	border-radius: 10px; /* Abgerundete Ecken*/
+	left: 50%;
+	transform: translate(-50%,-50%);
+	position: absolute;
+	text-align: center;
+}
+
+section.first {
+	text-align: center;
+	background-color: black;
+	color: white;
+}
+
+/***!My new Counter **/
+.counters {
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.counters > div {
+	padding: 20px 40px;
+}
+
+.count {
+	line-height: 100px;
+	color:white;
+	font-size:3em;
+	color: #e81413;
+  }
+
+.titel {
+	text-align: center;
+    color: white;
+	border-bottom-style: ridge;
+	margin-top: -7%;
+}
+
+#globalcount {
+	overflow: hidden;
+	text-transform: uppercase;
+	border: #FFF;
+	border-style: solid;
+	margin-top: 5%;
+	padding: 10px;
+}
+
+#globalcount h3 {
+	font-size: 1.5em;
+	text-transform: uppercase;
+	margin-top: 30px;	
+}
+
+.count-wrap {
+	display: flex;
+	justify-content: space-around;
+}
+
+#designcount {
+  width: 275px;
+  opacity: 0.7;
+  float:left;
+}
+
+/*dunkel-blaue Farbe beim Preis*/
+#designcount span.blau {
+	color:#30d2d5; 
+}
+
+/*--- "Mehr erfahren" Box---*/
+
+.mehr-wrap {
+	display: flex;
+	flex-direction: column;
+	align-items: center; /*sehr wichtig: wenn man flex-dicetion: column macht, dann muss man die Elemente über flex-direction zentrieren und nicht über justify-content!!*/
+}
+
+.accordion-utopia {
+	color: red;
+	background-color: transparent;
+    cursor: pointer;
+    padding: 8px;
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+    transition: all 0.3s;
+	margin: 2%; /*Um Button ein wenig weiter runter zu bringen.*/
+	display: flex;
+}
+
+/*--Arrows go up & down when clicking --*/
+
+.accordion-utopia.active .arrow-up {
+	display: inline;
+}
+
+.accordion-utopia .arrow-up {
+	display: none;
+}
+
+.accordion-utopia .arrow-down {
+	display: inline;
+}
+
+.accordion-utopia.active .arrow-down {
+	display: none;
+}
+
+.arrow-up, .arrow-down {
+	width: 10px;
+    height: 10px;
+	margin-left: 15px !important;
+}
+
+.mehr-button {
+	padding: 16px 25px;
+	border-radius: 50px;
+	background-color: white;
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.mehr-button:hover {
+	color: red;
+	box-shadow: 0 0 0 5px rgba(255,255,255,.2)
+}
+
+.mehr-button:visited, .mehr-button:link  {
+	color: red;
+	text-decoration: none;
+}
+
+.hidden-container {
+	max-height: 0;
+    overflow: hidden; /*Sagt ob der Inhalt innerhalb einer Box abgeschnitten oder mit einer Scrollbox angezeigt werden 				                        soll, wenn nicht der ganze Text in eine Box passt.*/
+	transition: max-height 0.8s ease-in-out;
+	color: #000;
+	line-height: 1.5;
+	margin-top: 5%; /*Damit die Details nicht direkt auf Knopf erscheinen.*/
+}
+
+.responsiveUn {
+  content: "";
+  clear: both;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+}
+
+#procons {
+	min-height: 200px;
+}
+
+#wrapprocons {
+	position: relative;
+	background-position: center;
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+}
+
+/*-------- Preisliste --------*/
+
+.preisliste-h1 {
+	font-size: 2em;
+	margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+.knopf-content {
+	margin-top: 60px;
+}
+
+.knopf {
+	padding: 16px 25px;
+	border-radius: 50px;
+	/*-- background-color: grey --*/
+	font-size: 1.25em;
+	font-weight: 700;
+	cursor: pointer;
+	min-width: 170px; /*-- Macht, dass die Knöpfe bei "Marken" alle gleich gross sind (bei Handys) --*/
+	text-align: center;
+	color: black;
+}
+
+.knopf-eins {
+	background-color: #A6FFF2; /* 1) Prossibility: #A6FFF2; 2) Possibility: #ff3860;*/
+}
+
+.knopf-zwei {
+	background-color: #E2f0f7; /*1) Prossibility: #E2f0f7; 2) Possibility: #FFE4E5*/
+}
+
+.knopf-drei {
+	background-color: grey;
+}
+
+.knopf-eins:hover {
+	box-shadow: 0 0 0 5px rgba(138, 205, 195, .5); /*Schwarzer Schatten um den Knopf*/
+	color: black;
+}
+
+.knopf-zwei:hover {
+	box-shadow: 0 0 0 5px rgba(205, 218, 225, 1); /*Schwarzer Schatten um den Knopf*/
+	color: black;
+}
+
+.knopf-drei:hover {
+	box-shadow: 0 0 0 5px rgba(0,0,0,.2); /*Schwarzer Schatten um den Knopf*/
+	color: black;
+}
+
+.knopf:visited, .knopf:link  {
+	color: black;
+	text-decoration: none;
+}
+
+.knopf-margin {
+	margin: 50px;
+	display: flex;
+}
+
+/*---------------------------------Empfehlung Akkordeon-Teil ----------------------------------------------------*/
+.quelle, .verst, .kab {
+	padding: 0 18px;
+	max-height: 0;
+    overflow: hidden; /*Sagt ob der Inhalt innerhalb einer Box abgeschnitten oder mit einer Scrollbox angezeigt werden 				                        soll, wenn nicht der ganze Text in eine Box passt.*/
+	transition: max-height 0.2s ease-out;
+	color: #000;
+	line-height: 1.5;
+	text-align: left;
+}
+
+.quelle {
+	    background-color: #94b2e6e3;
+}
+
+.verst {
+	    background-color: #eaeaeae8;
+}
+
+.kab {
+	background-color: #ff5e36ed;
+}
+
+.accordionq, .accordionv, .accordionk {
+    color: #444;
+    cursor: pointer;
+    padding: 8px;
+    width: 100%;
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.accordionq {
+    background-color: #94b2e6;
+}
+
+.accordionv {
+	background-color: #eaeaea;
+}
+
+.accordionk {
+	background-color: #ff5e36;
+}
+
+.accordionq h2, .accordionv h2, .accordionk h2 {
+	font-size: 1em;
+}
+
+/*--------------- Ende Empfehlung Accordeon -------------------------------------------------------  */
+
+/*-- Beginn Impressum --*/
+.impressum-container {
+	padding: 30px 20px; /*Media-Querry*/
+}
+
+.impressum-content {
+	color: white;
+}
+
+.impressum-flex {
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+	border: 2px solid #000;
+    padding: 20px;
+}
+
+.impressum-wrap {
+	max-width: 500px;
+	width: 100%;
+}
+
+.impressum-text p, .impressum-item p {
+	margin: 10px;
+	line-height: 1.5;
+}
+
+.impressum-row {
+	margin-top: 5%;
+}
+
+
+/*-- Ende Impressum --*/
+
+/*------------------------------------------------ Phone Styles ----------------------------------------------*/
+@media only screen and (max-width: 479px) {
+
+#logo {
+  display: none;
+}
+
+#logo-phone {
+	display: block;
+	float: right;
+	font-family: 'Dancing Script', cursive;
+	font-size: 120%;
+}
+
+nav { 
+  margin: 0;
+  /*----- um die Navigation nicht fixiert zu lassen auf dem Handy ------ position: static;*/ 
+}
+
+.toggle + a, .menu { /*Selects all <a> elements that are placed immediately after toggle class*/
+   display: none;
+}
+
+.toggle {
+  display: block;
+  background-color: #282E34;
+  padding: 0 15px; /*vorher: 0 20px*/
+  font-size: 20px;
+  color: #FFF;
+  line-height: 60px;
+  text-decoration: none;
+  border: none;
+}
+
+.toggle:hover { 
+  background-color: #929292; /*Hover-Effekt hellgrau. Muss man zusätzlich einfügen, sonst gibt es keinen Hover-Effekt                               auf die Toggle Klasse*/
+}
+
+nav ul li a:hover {
+	background-color: #929292; /*Hover-Effekt hellgrau*/
+}
+
+[id^=drop]:checked + ul { /*Selects all <ul> elements that are placed immediately after some (checked) elements that                          begin with the ID "drop". Dieser Befehl ermöglicht das Click-Event! Nachdem die Elemente aus                          der Liste mit einem Check-Mark angeklickt wurden bzw. checked wurden, wechselt der Display von                          "none" zu "block" und die Elemente werden sichtbar! */
+  display: block; 
+}
+
+nav ul li {
+  display: block; /*Braucht man nicht. Funktioniert auch ohne*/
+  width: 100%;
+}
+
+nav ul ul .toggle,
+ nav ul ul a { 
+   padding: 0 40px; 
+}
+
+nav ul ul ul a { 
+  padding: 0 47px;  /*Macht, dass der innere Abstand innerhalb der <a>-Boxen grösser werden*/
+}
+
+/*------------ Nicht so gut bzw. unnötig*/
+nav a:hover,
+ nav ul ul ul a { 
+   background-color: #282E34; 
+}
+
+nav ul li ul li .toggle,
+ nav ul ul a { 
+   background-color: #212121; 
+}
+
+nav ul ul ul a {
+	background-color: #141414; /* Das Sub-Sub-Menü soll eine andere Farbe erhalten*/
+ }
+
+/*--------------- */
+
+nav ul ul, nav ul ul ul {
+  float: none; /*Braucht es, sonst füllt das zweite Submenü nicht mehr die ganze Seite aus */
+  position: static; /*Elements render in order, as they appear in the document flow*/
+  color: #ffffff;
+}
+
+nav ul ul li:hover > ul,
+nav ul li:hover > ul, nav ul li ul li:hover > ul { 
+  display: none; 
+}
+
+nav ul ul li, nav ul ul ul li {
+  display: block;
+  width: 100%;
+}
+
+nav ul ul ul li { 
+  position: static;
+}
+
+.unternehmen {
+	margin-top: 15%;
+}
+
+.centeredGrande, .centered {
+	top: 7rem;
+	width: 80%;
+}
+
+.hero-title {
+	font-size: 1.75rem;
+	font-weight: bold;
+}
+
+.hero-sub-title {
+	font-size: 1rem;
+}
+
+.white-section {
+	padding: 30px 20px;
+}
+
+.wrap-three /*Damit auf Phone alles untereinander kommt...*/ {
+	flex-wrap: wrap;
+}
+
+.descr h2/*Special underline for Tablets & Iphones*/ {
+	text-decoration: underline;
+}
+
+/*---- Produkte ----*/
+
+.products {
+	padding: 10px 40px;
+}
+
+.wrap-three {
+	justify-content: space-around;
+}
+
+.p-wrap {
+	flex-wrap: wrap;
+}
+
+.special p {
+	font-size: 1.25em;
+}
+
+.high-light /*h3 size of text*/ {
+	font-size: 1.25em;
+}
+
+.main-container .flex-wrap {
+	flex-wrap: wrap;
+}
+
+.article-container {
+    max-width: 540px;
+	margin: auto;
+}
+
+.image-flex {
+	width: 100%;
+}
+
+.wrap-content {
+	width: 100%;
+	align-self: flex-start;
+}
+
+.drin {
+	padding: 10% 15%;
+}
+
+.preisliste-drin /*muss separat aufgeführt werden, sonst wird die Tabelle nicht schön gerendert auf Phones & Tablets*/ {
+	padding: 10% 5%;
+}
+
+.botschaft p {
+    font-size: 1.25em;
+	text-align: center;
+}
+
+.vertical-center {
+	margin-top: 15%;
+}
+
+/* .count-wrap {
+	flex-wrap: wrap;
+} */
+
+/* .count-preis {
+	margin-top: 15%;
+} */
+
+.responsive-first /*Otherwise first image has a too high margin-top*/ {
+	margin-top: 0px;
+}
+
+section.first{
+	padding: 60px 20px;
+}
+
+.grande {
+	margin-top: 20%;
+	border-color: #FFF;
+    border-style: solid;
+    border-left: thick;
+    border-right: thick;
+    padding: 20px 10px;
+    color: #FFF;
+	line-height: 1.5;
+}
+
+.grande p {
+    font-size: 1.25em;
+	text-align: center;
+}
+
+.titel {
+	font-size: 2.25em;
+}
+
+.responsiveUn {
+	width: 100%;
+}
+
+#secondwrapprocons {
+	width: 100%;
+	content: "";
+}
+
+
+
+.titel-breite h1 {
+	font-size: 2em;
+}
+
+.preisliste-breite {
+	width: 100%;
+}
+
+.preis-flex {
+	flex-wrap: wrap;
+}
+
+.last-container {
+	flex-wrap: wrap;
+}
+
+.link-item {
+	margin-top: 20px;
+}
+
+.pimg1, .pimg2 {
+	background-attachment: scroll;
+}
+
+}
+
+/* * Audiophil-Dreams.com Logo Break-Point on very small screens (otherwise you will have your Menu that will be on 2 lines for the Galaxy-Fold, which is ugly! * */
+@media only screen and (max-width: 312px) {
+	#logo-phone {
+		display: block;
+		float: right;
+		font-family: 'Dancing Script', cursive;
+		font-size: 100%; /* !  Achtung: muss UNTERHALB von allen "phone-styles" stehen, denn diese haben sonst priority auf diesem Code! */
+	}
+}
+
+/*Allgemeine-Medium-Phone-Styles*/
+@media only screen and (min-width: 480px) and (max-width: 989px) {
+	
+.menu /*unique for tablets*/{
+	width: 100%;
+}
+	
+#logo {
+  display: none;
+}
+
+#logo-phone {
+	display: block;
+	float: right;
+	font-family: 'Dancing Script', cursive;
+	font-size: 120%;
+}
+
+nav { 
+  margin: 0;
+  /*----- um die Navigation nicht fixiert zu lassen auf dem Handy ------ position: static;*/ 
+}
+
+.toggle + a, .menu { /*Selects all <a> elements that are placed immediately after toggle class*/
+   display: none;
+}
+
+.toggle {
+  display: block;
+  background-color: #282E34;
+  padding: 0 15px; /*vorher: 0 20px*/
+  font-size: 20px;
+  color: #FFF;
+  line-height: 60px;
+  text-decoration: none;
+  border: none;
+}
+
+.toggle:hover { 
+  background-color: #929292; /*Hover-Effekt hellgrau. Muss man zusätzlich einfügen, sonst gibt es keinen Hover-Effekt                               auf die Toggle Klasse*/
+}
+
+nav ul li a:hover {
+	background-color: #929292; /*Hover-Effekt hellgrau*/
+}
+
+[id^=drop]:checked + ul { /*Selects all <ul> elements that are placed immediately after some (checked) elements that                          begin with the ID "drop". Dieser Befehl ermöglicht das Click-Event! Nachdem die Elemente aus                          der Liste mit einem Check-Mark angeklickt wurden bzw. checked wurden, wechselt der Display von                          "none" zu "block" und die Elemente werden sichtbar! */
+  display: block; 
+}
+
+nav ul li {
+  display: block; /*Braucht man nicht. Funktioniert auch ohne*/
+  width: 100%;
+}
+
+nav ul ul .toggle,
+ nav ul ul a { 
+   padding: 0 40px; 
+}
+
+nav ul ul ul a { 
+  padding: 0 80px;  /*Macht, dass der innere Abstand innerhalb der <a>-Boxen grösser werden*/
+}
+
+/*------------ Nicht so gut bzw. unnötig*/
+nav a:hover,
+ nav ul ul ul a { 
+   background-color: #282E34; 
+}
+
+nav ul li ul li .toggle,
+ nav ul ul a {
+   background-color: #212121; 
+}
+
+nav ul ul ul a {
+	background-color: #141414; /* Das Sub-Sub-Menü soll eine andere Farbe erhalten */
+ }
+
+/*--------------- */
+
+nav ul ul, nav ul ul ul {
+  float: none; /*Braucht es, sonst füllt das zweite Submenü nicht mehr die ganze Seite aus */
+  position: static; /*Elements render in order, as they appear in the document flow*/
+  color: #ffffff;
+}
+
+nav ul ul li:hover > ul,
+nav ul li:hover > ul, nav ul li ul li:hover > ul {
+  display: none; 
+}
+
+nav ul ul li, nav ul ul ul li {
+  display: block;
+  width: 100%;
+}
+
+/* nav ul ul ul li { 
+  position: static;
+} */
+
+.take-away {
+    padding: 20px 10px;
+}
+
+.unternehmen {
+	margin-top: 10%;
+}
+
+.centeredGrande, .centered {
+	top: 9rem;
+	width: 85%;
+}
+
+.hero-title {
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+.hero-sub-title {
+	font-size: 1.25rem;
+}
+
+.white-section {
+	padding: 30px 20px;
+}
+
+.wrap-three /*Damit auf Phone alles untereinander kommt...*/ {
+	flex-wrap: wrap;
+}
+
+.descr h2/*Special underline for Tablets & Iphones*/ {
+	text-decoration: underline;
+}
+
+/*---- Produkte ----*/
+
+.products { /* ! Achtung: einziger Style, welcher man behalten sollte, wenn du die Flexbox-Cards mit derjenigen der */
+	padding: 25px 40px;
+}
+
+.wrap-three {
+	justify-content: space-around;
+}
+
+.p-wrap {
+	flex-wrap: wrap;
+}
+
+.special p {
+	font-size: 1.5em;
+}
+
+.highlight /*h3 size of text*/ {
+	font-size: 1.5em;
+}
+
+.main-container .flex-wrap {
+	flex-wrap: wrap;
+}
+
+/* .count-preis {
+	margin-top: 5%;
+} */
+
+.image-flex {
+	width: 100%;
+}
+
+.wrap-content {
+	width: 100%;
+	align-self: flex-start;
+}
+
+.drin {
+	padding: 10% 15%;
+}
+
+.preisliste-drin /*muss separat aufgeführt werden, sonst wird die Tabelle nicht schön gerendert auf Phones & Tablets*/ {
+	padding: 10% 5%;
+}
+
+.botschaft p {
+    font-size: 1.5em;
+	text-align: center;
+}
+
+.vertical-center {
+	margin-top: 6.5%;
+}
+
+section.first{
+	padding: 50px 40px;
+}
+
+.grande {
+	margin-top: 10%;
+	border-color: #FFF;
+    border-style: solid;
+    border-left: thick;
+    border-right: thick;
+    padding: 20px 10px;
+    color: #FFF;
+	line-height: 1.5;
+}
+
+.grande p {
+	font-size: 1.5em;
+	text-align: center;
+}
+
+.titel {
+	font-size: 2.5em;
+}
+
+.responsiveUn {
+	width: 75%;
+}
+
+#procons {
+	padding: 27px 0;
+	margin-top: 10%;
+}
+
+#secondwrapprocons {
+	width: 100%;
+}
+
+.titel-breite h1 {
+	font-size: 2em;
+}
+
+.preisliste-breite {
+	width: 100%;
+}
+
+.footer {
+	justify-content: center;
+}
+
+.last-container {
+	flex-wrap: wrap;
+}
+
+.pimg1, .pimg2 {
+	background-attachment: scroll;
+}
+}
+
+/*Medium-Phones-Styles */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+.article-container {
+    max-width: 760px;
+	margin: auto;
+}
+
+.responsive /*Special for desktop: Bilder in Section first stay rather small to match on one single line*/ {
+	width: 65%;
+} 
+}
+
+
+/*Ipad-Styles */
+@media only screen and (min-width: 768px) and (max-width: 989px) {
+.article-container {
+    max-width: 980px;
+	margin: auto;
+}
+
+.responsive /*Special for desktop: Bilder in Section first stay rather small to match on one single line*/ {
+	width: 65%;
+} 
+
+}
+
+/* Desktop Styles allgemeines Design (für Navi only!) */
+@media only screen and (min-width: 1039px) {
+	nav ul ul ul{
+        left: 240px;
+        top:0;
+    }
+	.toggle {
+		display: none;
+	}
+	   
+	#logo {
+		display: block;
+	}
+	
+	nav a.thispage {
+		background-color: #929292; /*Damit die Farbe auf aktuellen Seite bleibt.*/
+	}
+	
+	nav ul li ul li:hover { 
+		background: #CCC; /*Macht, dass wenn man auf ein Untermenü fährt, dass die Hover Farbe sich ändert. Hier ist die                        Farbe grau. Könnte auch background-color schreiben...*/
+	}
+	
+	nav a:hover { 
+		background-color: #929292;
+	}
+	
+	nav ul li:hover { 
+		background: #929292; /*Macht, dass wenn man auf ein Untermenü fährt, dass die Hover Farbe sich ändert. Hier wird 			
+							die Farbe leicht hell-grauer. Könnte auch background-color schreiben...*/
+	}
+
+	nav ul ul li {
+        position: relative;
+    }
+}
+
+/* Desktop Styles allgemeines Design */
+@media only screen and (min-width: 990px) {
+ 
+/*---- Index ----*/
+
+.take-away {
+    padding: 20px 10px;
+}
+
+.unternehmen {
+	margin-top: 5%;
+}
+ 
+.centeredGrande, .centered {
+	top: 14rem;
+}
+ 
+.hero-title {
+	font-size: 3.5rem;
+	font-weight: bold;
+}
+
+.hero-sub-title {
+	font-size: 1.5rem;
+}
+
+.responsive /*Special for desktop: Bilder in Section first stay rather small to match on one single line*/ {
+	width: 29.99999%;
+}
+
+.white-section {
+	padding: 90px 80px;
+}
+
+/*---- Produkte ----*/
+
+.products {
+	padding: 90px 80px;
+}
+
+.wrap-three {
+	justify-content: space-evenly; /*später, wenn 3 kleine Boxen: space-between; */
+}
+
+.product-article {
+	padding: 40px 70px;
+}
+
+.special p {
+	font-size: 1.5em;
+}
+
+.highlight /*h3 size of text*/ {
+	font-size: 1.5em;
+}
+
+.p-wrap > div {
+	width: 50%;
+}
+
+.botschaft p {
+    font-size: 1.75em;
+	text-align: center;
+}
+
+.vertical-center {
+	margin-top: 7.5%;
+}
+
+section.first {
+	padding: 90px 80px;
+}
+
+.grande {
+	margin-top: 10%;
+	border-color: #FFF;
+    border-style: solid;
+    border-left: thick;
+    border-right: thick;
+    padding: 20px 10px;
+    color: #FFF;
+	line-height: 1.5;
+}
+
+.grande p {
+	font-size: 1.75em;
+	text-align: center;
+}
+
+.titel {
+	font-size: 50px;
+}
+
+.responsiveUn {
+	width: 50%;
+}
+
+#procons {
+	padding: 90px 80px;
+}
+
+#secondwrapprocons {
+	width: 33.32%;
+}
+
+/* .count-preis {
+	margin-top: 5%;
+} */
+
+.titel-breite h1 {
+	font-size: 5em;
+}
+
+.preisliste-breite {
+	width: 29.99999%;
+}
+
+.pimg1, .pimg2 {
+	background-attachment: fixed;
+}
+ 
+}
+
+/*Spezielles für > 1'000px bis 1'346px --> ist notwenidg, sonst gibt es einen Bug und das Bild kommt nicht bis zum Text, siehe z.B. News-Seite, wenn du diesen Code-Abschnitt löschest.*/
+@media only screen and (min-width: 990px) and (max-width: 1271px) { /*vorher: max-width: 1024px, aber dann kommt das Logo von Audiophil-Dreams auf die untere Seite, wenn ich das Browserfenster verkleinere!*/
+.menu /*unique for tablets*/{
+	width: 100%;
+}
+
+#logo {
+  display: none;
+}
+
+#logo-phone {
+	display: block;
+	float: right;
+	font-family: 'Dancing Script', cursive;
+	font-size: 120%;
+}
+
+nav { 
+  margin: 0;
+  /*----- um die Navigation nicht fixiert zu lassen auf dem Handy ------ position: static;*/ 
+}
+
+.toggle + a, .menu { /*Selects all <a> elements that are placed immediately after toggle class*/
+   display: none;
+}
+
+.toggle {
+  display: block;
+  background-color: #282E34;
+  padding: 0 15px; /*vorher: 0 20px*/
+  font-size: 20px;
+  color: #FFF;
+  line-height: 60px;
+  text-decoration: none;
+  border: none;
+}
+
+.toggle:hover { 
+  background-color: #929292; /*Hover-Effekt hellgrau. Muss man zusätzlich einfügen, sonst gibt es keinen Hover-Effekt                               auf die Toggle Klasse*/
+}
+
+nav ul li a:hover {
+	background-color: #929292; /*Hover-Effekt hellgrau*/
+}
+
+[id^=drop]:checked + ul { /*Selects all <ul> elements that are placed immediately after some (checked) elements that                          begin with the ID "drop". Dieser Befehl ermöglicht das Click-Event! Nachdem die Elemente aus                          der Liste mit einem Check-Mark angeklickt wurden bzw. checked wurden, wechselt der Display von                          "none" zu "block" und die Elemente werden sichtbar! */
+  display: block; 
+}
+
+nav ul li {
+  display: block; /*Braucht man nicht. Funktioniert auch ohne*/
+  width: 100%;
+}
+
+nav ul ul .toggle,
+ nav ul ul a { 
+   padding: 0 40px; 
+}
+
+nav ul ul ul a { 
+  padding: 0 80px;  /*Macht, dass der innere Abstand innerhalb der <a>-Boxen grösser werden*/
+}
+
+/*------------ Nicht so gut bzw. unnötig*/
+nav a:hover,
+ nav ul ul ul a { 
+   background-color: #282E34; 
+}
+
+nav ul li ul li .toggle,
+ nav ul ul a {
+   background-color: #212121; 
+}
+
+nav ul ul ul a {
+	background-color: #141414; /* Das Sub-Sub-Menü soll eine andere Farbe erhalten*/
+ }
+
+/*--------------- */
+
+nav ul ul, nav ul ul ul {
+  float: none; /*Braucht es, sonst füllt das zweite Submenü nicht mehr die ganze Seite aus */
+  position: static; /*Elements render in order, as they appear in the document flow*/
+  color: #ffffff;
+}
+
+nav ul ul li:hover > ul,
+nav ul li:hover > ul, nav ul li ul li:hover > ul {
+  display: none; 
+}
+
+nav ul ul li, nav ul ul ul li {
+  display: block;
+  width: 100%;
+}
+
+/* nav ul ul ul li { 
+  position: static;
+} */
+
+.drin, .preisliste-drin { /*Breite & Länge innerhalb der Schreib-Box*/
+	padding: 5% 10%;
+}
+
+.plain-text {
+    line-height: 20px;
+}
+
+.plain-text p {
+	font-size: 0.8em;
+}
+
+.main-container .plain-text ul {
+    font-size: 0.78em;
+    line-height: 1.5;
+}
+
+.main-container .plain-text ul ul {
+    font-size: inherit;
+}
+
+.pimg1, .pimg2 {
+	background-attachment: scroll;
+}
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1073px) { /*vorher: max-width: 1200px*/
+
+
+.drin, .preisliste-drin { /*Breite & Länge innerhalb der Schreib-Box*/
+	padding: 5% 10%;
+}
+
+.plain-text {
+    line-height: 20px;
+}
+
+.plain-text p {
+	font-size: 0.85em;
+}
+
+.main-container .plain-text ul {
+    font-size: 0.85em;
+    line-height: 1.5;
+}
+
+.main-container .plain-text ul ul {
+    font-size: inherit;
+}
+}
+
+@media only screen and (min-width: 1074px) and (max-width: 1139px) { /*vorher: max-width: 1200px*/
+
+
+.drin { /*Breite & Länge innerhalb der Schreib-Box*/
+	padding: 5% 10%;
+}
+
+.plain-text {
+    line-height: 20px;
+}
+
+.plain-text p {
+	font-size: 0.9em;
+}
+
+.main-container .plain-text ul {
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+.main-container .plain-text ul ul {
+    font-size: inherit;
+}
+}
+
+@media only screen and (min-width: 1140px) and (max-width: 1200px) { /*vorher: */
+
+
+.drin, .preisliste-drin { /*Breite & Länge innerhalb der Schreib-Box*/
+	padding: 5% 11.5%;
+}
+
+.plain-text {
+    line-height: 25px;
+}
+
+.plain-text p {
+	font-size: 0.9em;
+}
+
+.main-container .plain-text ul {
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+.main-container .plain-text ul ul {
+    font-size: inherit;
+}
+}
+
+@media only screen and (min-width: 1201px) and (max-width: 1270px) { /*vorher: */
+
+
+.drin, .preisliste-drin { /*Breite & Länge innerhalb der Schreib-Box*/
+	padding: 5% 12%;
+}
+
+.plain-text {
+    line-height: 25px;
+}
+
+.plain-text p {
+	font-size: 0.95em;
+}
+
+.main-container .plain-text ul {
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+.main-container .plain-text ul ul {
+    font-size: inherit;
+}
+}
+
+@media only screen and (min-width: 1271px) and (max-width: 1345px) { /*vorher: */
+
+
+.drin { /*Breite & Länge innerhalb der Schreib-Box*/
+	padding: 5% 12.5%;
+}
+
+.plain-text {
+    line-height: 25px;
+}
+
+.plain-text p {
+	font-size: 1em;
+}
+
+.main-container .plain-text ul {
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+.main-container .plain-text ul ul {
+    font-size: inherit;
+}
+}
+
+@media only screen and (min-width: 1346px) and (max-width: 1366px) { /*vorher: */
+.pimg1, .pimg2 {
+	background-attachment: scroll;
+}
+}
+
+
+/*---Heikelste Parallax-Bilder depending on Screensize---*/
+
+/*for Phones (Portrait)*/
+@media only screen and (max-width: 500px) {
+.pimg-maestro {
+	background-image:url(../bilder/focal/focal-maestro-utopia-evo/focal-maestro-utopia-evo-farbe-weiss-innenraum-referenz-standlautsprecher-bei-audiophil-dreams-8713-uerikon-schweiz-phone-version.jpg)
+}
+
+.pimg-stella {
+	background-image:url(../bilder/focal/focal-stella-utopia-evo/focal-stella-utopia-evo-im-haus-9-1280-ultimativer-standlautsprecher-bei-audiophil-dreams-8713-uerikon-schweiz-sw-phone-version.jpg)
+	}
+}
+
+/*for tablets (Landscape)*/
+@media only screen and (min-width: 501px) {
+.pimg-maestro {
+	background-image:url(../bilder/focal/focal-maestro-utopia-evo/focal-maestro-utopia-evo-farbe-weiss-innenraum-referenz-standlautsprecher-bei-audiophil-dreams-8713-uerikon-schweiz-tablet-version.jpg)
+}
+
+.pimg-stella {
+	background-image: url(../bilder/focal/focal-stella-utopia-evo/focal-stella-utopia-evo-im-haus-9-1280-ultimativer-standlautsprecher-bei-audiophil-dreams-8713-uerikon-schweiz-sw-tablet-version.jpg)
+	}
+}
+
+/*for desktops (Landscape)*/
+@media only screen and (min-width: 1650px) {
+.pimg-maestro {
+	background-image:url(../bilder/focal/focal-maestro-utopia-evo/focal-maestro-utopia-evo-farbe-weiss-innenraum-referenz-standlautsprecher-bei-audiophil-dreams-8713-uerikon-schweiz.jpg)
+}
+	
+.pimg-stella {
+	background-image: url(../bilder/focal/focal-stella-utopia-evo/focal-stella-utopia-evo-im-haus-9-1280-ultimativer-standlautsprecher-bei-audiophil-dreams-8713-uerikon-schweiz-sw.jpg)
+	}
+	
+}
+
+.pimg1, .pimg2 { /*Parallax Images, damit Bilder geil von unten auftauchen*/
+	position: relative;
+	opacity: 1;
+	width: 100%;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.ptext{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 450px; /* vorher: 750px*/
+	flex-direction: column;
+}
+
+.ptext h2 {
+	color: #fff;
+    font-weight: 700;
+    font-size: 40px;
+	text-transform: uppercase;
+    letter-spacing: 2px;
+	font-family: 'Montserrat', sans-serif;
+	text-align: center;
+}
+
+.kontakt-knopf{
+	color: rgb(0, 0, 0);
+	background-color: white;
+	border-radius: 14px;
+	font-size: 20px;
+    font-weight: 700;
+	font-family: 'Asap', Helvetica, Arial, sans-serif;
+}
+
+.pimg1 {
+	min-height: 480px; /*Vorher: 900px */
+}
+
+.pimg2 {
+	min-height: 1100px;
+}
+
+/*------------------------------------------------ Phone Styles ----------------------------------------------*/
+@media only screen and (max-width: 479px) {
+	.pimg1 {
+		background-attachment: scroll;
+	}
+}
+
+/*Allgemeine-Medium-Phone-Styles*/
+@media only screen and (min-width: 480px) and (max-width: 989px) {
+	.pimg1 {
+		background-attachment: scroll !important;
+	}
+}
+
+/* Desktop Styles allgemeines Design */
+@media only screen and (min-width: 990px) {
+	.pimg1 {
+		background-attachment: fixed !important;
+	}
+}
+
+/*Spezielles für > 1'000px bis 1'346px --> ist notwenidg, sonst gibt es einen Bug und das Bild kommt nicht bis zum Text, siehe z.B. News-Seite, wenn du diesen Code-Abschnitt löschest.*/
+@media only screen and (min-width: 990px) and (max-width: 1038px) { /*vorher: max-width: 1024px, aber dann kommt das Logo von Audiophil-Dreams auf die untere Seite, wenn ich das Browserfenster verkleinere!*/
+	.pimg1 {
+		background-attachment: scroll !important;
+	}
+}
+
+@media only screen and (min-width: 1346px) and (max-width: 1366px) { /*vorher: */
+	.pimg1 {
+		background-attachment: scroll !important;
+	}
+}
+
+/*arrow
+------------------------------------------- */
+.arrow {
+	text-align: center;
+	color: white;
+	font-size: 5em; /*!!! Einfügen eines kleineren font-size bei media-querries!*/
+	left: 90%;
+	position: absolute;
+	top: 55%;
+	}
+
+.arrow a {
+	text-decoration: none;
+}	
+	
+.arrow a:hover {
+	transition: .5s;
+    color: #F00;
+}
+
+/*-----------------Ende arrow ----------------------*/
+
+/*----------Beginn 3er Bilder-Gallerie mit Kommentar unter den Bildern------------------------*/
+.wrapGallery {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.responsiveDeux {
+    padding: 0 6px;
+    float: left;
+}
+
+.responsiveDeux {
+	width: 45%;
+	margin-top: 5%;
+	margin-left: 50px;
+}
+
+div.galleryDeux img {
+    width: 100%;
+    height: auto;
+}
+
+/*------Ende 3er Bilder-Gallerie ----------------------*/
+
+/* section.desc {
+    padding: 15px;
+    text-align: center;
+} */
+
+/*---------- Ende Section Index ------------------------------------------------------- */
+
+/*------------------Start Section Produkte----------------------------------------------*/
+
+
+div.maintitel h1 {
+	font-size: 30px;
+	font-weight: bold;
+	}
+
+img.prod {
+	max-width: 100%;
+	margin-top: 10%;
+}
+
+#column > p:first-child {
+  margin-top: 0;
+} /*Braucht man, sonst ist die zweite Spalte einfach "zu hoch oben" xD  */
+
+
+/*---------------------------------Number Counter-----------------------------------------------------------------*/
+#countWrap{
+	background-image:url(../images/B&W803D%20Kopf%20seitlich.JPG);
+	width: 100%;
+	opacity: 0.7;
+	background: no-repeat;
+}
+
+
+
+/*---------------------------------Ende Number Counter-----------------------------------------------------------*/
+
+/*--------------Letzter Abschnitt mit technische Details-----------------------*/
+
+#last {
+	min-width: 50%;
+	font-size: 1.5em;
+	color: white;
+    text-align: center;
+    padding: 30px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*--------------Footer-----------------------------------------------------------------*/
+.footer {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
+  background-color: #033;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.adresseWrap {
+	max-width: 500px;
+	width: 100%;
+	margin-top: 50px;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.adresseUn {
+	background: #F9F9F9;
+	padding: 12px 10px;
+}
+
+.adresseUn h2 {
+	text-transform: uppercase;
+	text-align: left;
+	margin: 10px;
+}
+
+.adresseUn p {
+	text-align: left;
+	margin: 10px;
+	line-height: 1.5;
+}
+
+.adresseUn a:visited, .adresseUn a:link, .adresseUn a:hover {
+    color: blue;
+	text-decoration: none;
+}
+
+/*-------Iframes in Footer & Videso embedding-------*/
+
+.maps-container {
+	position: relative;
+	overflow: hidden;
+	padding-bottom: 56.25%; /*aspect-ratio of 16:9*/
+}
+
+/* @media only screen and (max-width: 479px) {
+	.maps-container {
+	margin-top: 20%;
+	}
+}
+
+@media only screen and (min-width: 480px) {
+.maps-container {
+	margin-top: 7%;
+	}
+} */
+
+/* @media only screen and (min-width: 769px) {
+	.video-scale {
+		margin: 60px 200px;
+	}
+} */
+
+.video {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+#maps /*da ich Google-Maps in Flex-Box integriert habe, funktioniert responsive-design bei der Google-Karte nicht!*/ {
+	/* margin-top: 7%; */
+	overflow: hidden;
+}
+
+.maps-margin{
+	margin-top: 7%;
+}
+
+/*----Ende Video & Google-Maps embedding-----*/
+
+
+.last-container {
+	width: 100%;
+	margin-top: 25px;
+	display: flex;
+	justify-content: space-around;
+}
+
+.copy-item {
+	color: white;
+}
+
+.link-item {
+	display: flex;
+    width: 100%;
+    max-width: 300px;
+    justify-content: space-evenly;
+}
+
+.link-item a:visited, .link-item a:link, .link-item a:hover {
+    color: white;
+	text-decoration: none;
+}
+
+.link-item a:hover, .adresseUn a:hover {
+	text-decoration: underline;
+}
+
+/*----funny animations -----*/
+
+.centeredGrande h1, .centeredGrande p, .centered h1, .centered p {
+    -webkit-animation: fadein 1.0s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 1.0s; /* Firefox < 16 */
+        -ms-animation: fadein 1.0s; /* Internet Explorer */
+         -o-animation: fadein 1.0s; /* Opera < 12.1 */
+            animation: fadein 1.0s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@media only screen and (min-width: 1800px) {
+  .page {
+    width: 1760px; /*Need this, because otherwise Website is going to expand infinitely. This is smth that you don't
+					want to happen!*/
+    margin: 0 auto;
+  }
+}
+
+
+/*---Tabellen Design ----*/
+
+table {
+  border-collapse: collapse; /*sehr wichtig, sonst funktioniert der "border" nicht für die <tr>-Tags!!*/
+}
+
+.rwd-table {
+  margin: auto;
+  min-width: 280px; /*adjust to your needs*/
+}
+  
+tbody {
+    display: table;
+    width: 100%;
+}
+  
+@media (min-width: 468px) {
+	 tbody {
+      display: table-row-group;
+	   }
+}
+
+tr {
+    display: table-row-group;
+}
+    
+@media (min-width: 468px) {
+	tr {
+      display: table-row;
+    }
+}
+
+th {
+    display: none; /*for accessibility, use a visually hidden method here instead! Thanks, reddit!*/    
+  }
+  
+td {
+    display: table-row; 
+}
+
+td:before {
+	content: attr(data-th)": "; /*who knew you could do this? The internet, that's who.*/ 
+    font-weight: bold;
+    padding: .2em .5em;
+	display: table-cell;
+    /*optional stuff to make it look nicer*/
+}
+      
+@media (min-width: 468px) {
+	td:before{
+		display: none;
+      }
+}
+  
+th, td {
+    text-align: left;
+}
+
+@media (min-width: 468px) {
+	
+	th, td {
+      display: table-cell;
+      padding: .25em .5em;
+	}
+	
+	th:first-child, td:first-child {
+		padding-left: 0;
+	}
+	
+	th:last-child, td:last-child {
+		padding-right: 0;
+	}
+
+}
+
+@media (max-width: 467px) {
+	tr { /*nur das ohne media-querry geht auch!*/
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+	}
+}
+
+@media (min-width: 468px) {
+	tr.table-header {
+		border-top: 1px solid #ddd;
+    	border-bottom: 1px solid #ddd;
+	}
+}
+
+/*---- Lightbox für "Long-Text-Design" ---------*/
+
+.long-image-wrap {
+	display: flex;
+}
+
+@media only screen and (max-width: 580px) {
+	.long-image-wrap {
+	justify-content: space-around; /*adapt for each media-query*/
+	flex-wrap: wrap; /*adapt for each media query*/
+	}
+	
+	.long-image-last {
+		margin-top: 25px;
+	}
+}
+
+@media only screen and (min-width: 581px) {
+	.long-image-wrap {
+	justify-content: space-between; /*adapt for each media-query*/
+	flex-wrap: wrap; /*adapt for each media query*/
+	margin: 30px;
+	}
+	
+	.long-image-between {
+		width: 49%;
+	}
+}
+
+.last-section-long {
+	margin-top: 50px;
+}
+
+.tabellen-title-spacing {
+	margin-top: 40px;
+}
+
+tr.adapt-cell td:last-child {
+    width:1%;
+    white-space:nowrap;/*<td> should adapt it's size to text*/
+}
+
+/***!Icons ***/
+.not-in-title-svg{
+	height: 3vh;
+	vertical-align: text-bottom; /* Wichtig: Macht, dass das SVG auch immer schön auf gleicher Höhe mit dem Text ist. */
+}
+
+.in-title-svg{
+	height: 3vh;
+	vertical-align: baseline; /* Wichtig: Macht, dass das SVG auch immer schön auf gleicher Höhe mit dem Text ist. */
+}
+
+/* -- Contact-Section -- */
+
+.contact-container{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+.flexbox-behavior{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.flexbox-columns{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.py-7{
+    padding: 7rem 0;
+}
+.lead{
+    opacity: 0.8;
+    padding: 1rem 0;
+    font-size: 1.7rem;
+    font-weight: 300;
+    line-height: 1.8;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* contact */
+#contact{
+    background-color: rgb(248, 248, 248);
+}
+.contact-title h2{
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 600;
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+}
+.contact-title h2::after{
+    position: absolute;
+    content: "";
+    top: 120%;
+    left: 0;
+    width: 70px;
+    height: 4px;
+    background-color: #332e29;;
+}
+.contact-content{
+    flex-direction: column;
+    align-items: stretch;
+}
+.contact-left{
+    margin-bottom: 5rem;
+}
+.contact-left .lead{
+    padding: 0.5rem;
+}
+
+
+/* Media Queries */
+
+@media(min-width: 576px){
+    .contact-title h2{
+        font-size: 4rem;
+    }
+}
+
+@media(min-width: 768px){
+    .contact-content{
+        flex-direction: row;
+    }
+    .contact-right{
+		align-self: center;
+        width: 50%;
+    }
+    .contact-left{
+        width: 50%;
+    }
+}
+
+/** --- Danke-Page: Start --- **/
+
+.danke-icon {
+	height: 10em;
+}
+
+@media screen and (min-width: 1000px) {
+	.danke-icon {
+		height: 25em;
+	}
+}
+
+@media screen and (max-width: 979px) {
+	.danke-section {
+		height: 100vh;
+	}
+}
+
+.grid-item-danke {
+	justify-self: center;
+	align-self: center;
+}
+
+.blau{
+	color: rgb(145, 186, 238);
+}
+
+/* -- Danke-Page: Ende -- */
